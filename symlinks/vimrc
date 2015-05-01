@@ -1,0 +1,253 @@
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+
+" CtrlP settings
+let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'undo']
+let g:ctrlp_working_path_mode = 'ra'
+
+"Forget compatibility with Vi. Who cares.
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+Plugin 'bling/vim-airline'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'jelera/vim-javascript-syntax'
+Bundle 'pangloss/vim-javascript'
+Plugin 'mattn/emmet-vim'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-fireplace'
+Plugin 'guns/vim-clojure-static'
+Plugin 'tpope/vim-leiningen'
+Plugin 'tpope/vim-classpath'
+Plugin 'chriskempson/base16-vim'
+Plugin 'elzr/vim-json'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just
+" :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to
+" auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+"Set viminfo location
+set viminfo+=n~/.vim/viminfo
+
+"Enable filetypes
+filetype on
+filetype plugin on
+filetype indent on
+syntax enable
+set t_Co=256
+
+"Write the old file out when switching between files.
+set autowrite
+
+" Switch off swap files
+set noswapfile
+
+"Display current cursor position in lower right corner.
+set ruler
+
+"Ever notice a slight lag after typing the leader key + command? This lowers
+"the timeout.
+set timeoutlen=500
+
+"Switch between buffers without saving
+set hidden
+
+"Set the color scheme. Change this to your preference.
+colorscheme base16-solarized
+set background=dark
+
+" Remove right and left scrollbars
+set guioptions-=R
+set guioptions-=L
+
+" Stop prompts
+set guioptions+=c
+
+"Set font type and size. Depends on the resolution. Larger screens, prefer h15
+set guifont=Source\ Code\ Pro\ Light:h14
+
+"Tab stuff
+set tabstop=3
+set shiftwidth=3
+set softtabstop=3
+set expandtab
+
+" Configuration for vim-javascript bundle
+let javascript_enable_domhtmlcss = 1
+
+" Turn on airline tab extensions
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+" To open a new empty buffer
+" This replaces :tabnew which I used to bind to this mapping
+nmap <leader>T :enew<cr>
+
+" Move to the next buffer
+nmap <leader>l :bnext<CR>
+
+" Move to the previous buffer
+nmap <leader>h :bprevious<CR>
+
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <leader>bq :bp <BAR> bd #<CR>
+
+" Show all open buffers and their status
+nmap <leader>bl :ls<CR>
+
+"Set cursor depending on mode
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
+"Show command in bottom right portion of the screen
+set showcmd
+
+"Show lines numbers
+set number
+
+"Indent stuff
+set smartindent
+set autoindent
+
+"Always show the status line
+set laststatus=2
+
+"Prefer a slightly higher line height
+set linespace=3
+
+"Better line wrapping
+set wrap
+set textwidth=79
+set formatoptions=qrn1
+
+"Set incremental searching"
+set incsearch
+
+"Don't highlight searching
+set nohlsearch
+
+" case insensitive search
+set ignorecase
+set smartcase
+
+"Hide MacVim toolbar by default
+set go-=T
+
+"Hard-wrap paragraphs of text
+nnoremap <leader>q gqip
+
+"Enable code folding
+set foldenable
+
+"Hide mouse when typing
+set mousehide
+
+"Split windows below the current window.
+" set splitbelow
+
+"Session settings
+set sessionoptions=resize,winpos,winsize,buffers,tabpages,folds,curdir,help
+
+"Set up an HTML5 template for all new .html files
+"autocmd BufNewFile * silent! 0r $VIMHOME/templates/%:e.tpl
+
+" Omnicomplete for CSS
+set omnifunc=csscomplete#CompleteCSS
+
+"Shortcut for editing  vimrc file in a new tab
+nmap <leader>v :e $MYVIMRC<cr>
+nmap <leader>z :e ~/.zshrc<cr>
+nmap <leader>n :Explore<cr>
+
+"Saves time; maps the spacebar to colon
+nmap <space> :
+
+"Automatically change current directory to that of the file in the buffer
+" autocmd BufEnter * cd %:p:h
+
+"Map code completion to , + tab
+imap ,<tab> <C-x><C-o>
+
+" More useful command-line completion
+" set wildmenu
+
+"Auto-completion menu
+" set wildmode=list:longest
+
+"Map escape key to jj -- much faster
+imap jj <esc>
+
+"Delete all buffers (via Derek Wyatt)
+nmap <silent> ,da :exec "1," . bufnr('$') . "bd"<cr>
+
+"Bubble and sink single lines (kicks butt)
+"http://vimcasts.org/episodes/bubbling-text/
+nmap <C-b> ddkP
+nmap <C-s> ddp
+
+"Bubble and sink multiple lines
+vmap <C-b> xkP`[V`]
+vmap <C-s> xp`[V`]
+
+" Source the vimrc file after saving it. This way, you don't have to reload
+" Vim to see the changes.
+if has("autocmd")
+  autocmd bufwritepost .vimrc source $MYVIMRC
+endif
+"
+" easier window navigation
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+
+"Helpful abbreviations
+iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+"Spelling corrects. Just for example. Add yours below.
+iab teh the
+iab Teh The
+
+"Stack Overflow search
+function! Stack()
+   call inputsave()
+   let searchterm = input('Stack Overflow: ')
+   call inputrestore()
+   return searchterm
+endfunction
+
+map <leader>s <ESC>:! /usr/bin/open -a "/Applications/Google Chrome.app" 'http://stackoverflow.com/search?q=<C-R>=Stack()<CR>'<CR><CR>
+
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 85
+let g:netrw_banner = 0
+
+let g:user_emmet_expandabbr_key='<Tab>'

@@ -1,0 +1,4 @@
+---
+:notifier: growl
+:progress: false
+:tmux: false

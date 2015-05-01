@@ -1,0 +1,242 @@
+
+
+# shortcut to this dotfiles path is $DOTFILES
+export DOTFILES=$HOME/.dotfiles
+
+# project folder that we can `c [tab]` to
+export PROJECTS=$HOME/Projects
+
+# store for various dumped files
+export VARDIR=$HOME/.var
+export ZSH_VARDIR=$VARDIR/zsh
+
+# use .env for environment variables
+if [[ -a $HOME/.env ]]
+then
+  source $HOME/.env
+fi
+
+# use .env-local for environment variables you dont want in git
+if [[ -a $HOME/.env-local ]]
+then
+  source $HOME/.env-local
+fi
+
+# setup history
+HISTFILE=$ZSH_VARDIR/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+
+setopt appendhistory # append to history rather than overwrite
+setopt extendedhistory # save beginning and ending timestamps to the history file
+setopt histexpiredupsfirst # remove oldest duplicate first
+setopt histignorealldups  # don't record dupes in history
+setopt histreduceblanks
+setopt histignorespace # do not enter command lines into the history list if they begin with a blank
+setopt histverify # don't execute the line directly; perform history substitution and reload line into the editing buffer
+setopt incappendhistory # add new lines incrementally
+setopt sharehistory # share command history data
+
+# compilation flags
+export ARCHFLAGS="-arch x86_64"
+
+# setup path
+export PATH=`echo ":$PATH:" | sed -e "s:\:/usr/local/bin\::\::g" -e "s/^://" -e "s/:$//"`
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/X11R6/bin:$DOTFILES/bin:$DOTFILES/share:$PATH"
+export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
+export NODE_PATH="$NODE_PATH:/bin/sh"
+
+# set prompt colours
+autoload -U colors && colors
+
+if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="white"; fi
+if [[ x$WINDOW != x ]]; then SCREEN_NO="%B$WINDOW%b "; else SCREEN_NO=""; fi
+
+# LS colors, made with http://geoff.greer.fm/lscolors/
+export LSCOLORS="Gxfxcxdxbxegedabagacad"
+export LS_COLORS='no=00:fi=00:di=01;34:ln=00;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=41;33;01:ex=00;32:*.cmd=00;32:*.exe=01;32:*.com=01;32:*.bat=01;32:*.btm=01;32:*.dll=01;32:*.tar=00;31:*.tbz=00;31:*.tgz=00;31:*.rpm=00;31:*.deb=00;31:*.arj=00;31:*.taz=00;31:*.lzh=00;31:*.lzma=00;31:*.zip=00;31:*.zoo=00;31:*.z=00;31:*.Z=00;31:*.gz=00;31:*.bz2=00;31:*.tb2=00;31:*.tz2=00;31:*.tbz2=00;31:*.avi=01;35:*.bmp=01;35:*.fli=01;35:*.gif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mng=01;35:*.mov=01;35:*.mpg=01;35:*.pcx=01;35:*.pbm=01;35:*.pgm=01;35:*.png=01;35:*.ppm=01;35:*.tga=01;35:*.tif=01;35:*.xbm=01;35:*.xpm=01;35:*.dl=01;35:*.gl=01;35:*.wmv=01;35:*.aiff=00;32:*.au=00;32:*.mid=00;32:*.mp3=00;32:*.ogg=00;32:*.voc=00;32:*.wav=00;32:'
+export CLICOLOR=true
+
+# load in our custom functions
+fpath=($DOTFILES/functions $fpath)
+autoload -U $DOTFILES/functions/*(:t)
+
+# all of our zsh files
+typeset -U config_files
+config_files=($DOTFILES/config/**/*.zsh)
+
+# load all config files
+for file in $config_files
+do
+ source $file
+done
+
+# initialize autocomplete here, otherwise functions won't be loaded
+autoload -U compinit
+compinit -C -d $ZSH_VARDIR/comp-$HOST
+
+unsetopt menucomplete # do not autoselect the first completion entry
+unsetopt flowcontrol
+unsetopt nomatch
+
+setopt alwaystoend # move cursor to end of word being completed
+setopt autoparamkeys autoparamslash autoremoveslash # be magic about adding/removing final characters on tab completion
+setopt completealiases # don't expand aliases _before_ completion has finished like: git comm-[tab]
+setopt extendedglob # in order to use #, ~ and ^ for filename generation
+setopt autolist # automatically list choices on an ambiguous completion
+setopt automenu # use menu after the second completion request
+setopt listpacked # pack the lists with variable width columns
+setopt recexact # recognise exact matches even if they're ambiguous
+setopt correct  # try to correct the spelling if possible
+setopt correctall # correct all arguments, not just the command
+setopt completeinword # complete from both sides
+setopt chasedots # replace ../ by the right directory
+
+WORDCHARS=''
+
+zmodload -i zsh/complist
+
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # use nice colors for completion lists
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+bindkey -M menuselect '^o' accept-and-infer-next-history # should this be in keybindings?
+
+zstyle ':completion:*' insert-tab pending # pasting with tabs doesn't perform completion
+
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path $ZSH_VARDIR/compcache
+
+# list of completers to use
+zstyle ':completion:*::::' completer _complete _ignored _match _approximate _list _prefix
+
+# allow one error for every three characters typed in approximate completer
+zstyle -e ':completion:*:approximate:*' max-errors \
+    'reply=( $(( ($#PREFIX+$#SUFFIX)/3 )) numeric )'
+
+# formatting and messages
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:descriptions' format $fg_bold[white]'%U%d%b%u'
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:warnings' format $fg_bold[red]'No matches for: %d'
+zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
+zstyle ':completion:*:expand:*' tag-order all-expansions
+zstyle ':completion:*' group-name ''
+
+# match uppercase from lowercase
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# offer indexes before parameters in subscripts
+zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
+
+# Use 'ps -au$USER' for fetch user process list
+zstyle ':completion:*:processes' command 'ps -au$USER'
+
+# files to ignore
+zstyle ':completion:*:(all-|)files' ignored-patterns '*.bk' '*.bak' '*.old' '*~' '.*.sw?'
+zstyle ':completion:*:(all-|)files' ignored-patterns '(|*/)svn'
+zstyle ':completion:*:cd:*' ignored-patterns '(*/)#svn'
+
+zstyle ':completion:*:*:zless:*' file-patterns '*(-/):directories *.gz:all-files'
+zstyle ':completion:*:*:lintian:*' file-patterns '*(-/):directories *.deb'
+
+zstyle ':completion:*:*:less:*' ignored-patterns '*.gz'
+zstyle ':completion:*:*:zcompile:*' ignored-patterns '(*~|*.zwc)'
+
+zstyle ':completion:*:*:*:*:*' menu select
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+zstyle ':completion:*:*:(kill|killall):*' force-list always
+
+# disable named-directories autocompletion
+zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
+
+# use caching so that commands like apt and dpkg complete are useable
+zstyle ':completion::complete:*' use-cache 1
+zstyle ':completion::complete:*' cache-path $ZSH_VARDIR
+
+# ignored function patterns
+zstyle ':completion:*:functions' ignored-patterns '_*'
+
+# don't complete uninteresting users
+zstyle ':completion:*:*:*:users' ignored-patterns \
+        adm amanda apache at avahi avahi-autoipd beaglidx bin cacti canna \
+        clamav daemon dbus distcache dnsmasq dovecot fax ftp games gdm \
+        gkrellmd gopher hacluster haldaemon halt hsqldb ident junkbust kdm \
+        ldap lp mail mailman mailnull man messagebus  mldonkey mysql nagios \
+        named netdump news nfsnobody nobody nscd ntp nut nx obsrun openvpn \
+        operator pcap polkitd postfix postgres privoxy pulse pvm quagga radvd \
+        rpc rpcuser rpm rtkit scard shutdown squid sshd statd svn sync tftp \
+        usbmux uucp vcsa wwwrun xfs '_*'
+
+# ... unless we really want to.
+zstyle '*' single-ignored show
+
+# http://xana.scru.org/2005/08/20#ignorelatexjunk
+zstyle -e ':completion:*:*:vim#:*:*' ignored-patterns \
+  'texfiles=$(echo ${PREFIX}*.tex); [[ -n "$texfiles" ]] &&
+  reply=(*.(aux|dvi|log|ps|pdf|bbl|toc|lot|lof|latexmain)) || reply=()'
+
+expand-or-complete-with-dots() {
+  echo -n "\e[31m......\e[0m"
+  zle expand-or-complete
+  zle redisplay
+}
+
+zle -N expand-or-complete-with-dots
+bindkey "^I" expand-or-complete-with-dots
+
+unset config_files
+
+setopt nobeep
+setopt nolistbeep
+setopt auto_cd
+setopt multios
+setopt cdablevars
+
+function curent_user() {
+  echo "%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%}"
+}
+
+function ruby_version() {
+  local _ruby
+  _ruby="$(chruby |grep \* |tr -d '* ')"
+  if [[ $(chruby |grep -c \*) -eq 1 ]]; then
+      echo "%{$fg[red]%}${_ruby}%{$reset_color%}"
+  else
+      echo "%{$fg[red]%}system%{$reset_color%}"
+  fi
+}
+
+function node_version() {
+  local _node
+  _node=$(node -v 2>/dev/null)
+  [[ "${_node}x" == "x" ]] && return
+  _node=${_node:1}
+  echo "%{$fg[green]%}node-${_node}%{$reset_color%}"
+}
+
+function current_dir() {
+  echo "%{$fg[blue]%}%B%c/%b%{$reset_color%}"
+}
+
+function git_prompt_info() {
+  ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
+  ref=$(command git rev-parse --short HEAD 2> /dev/null) || return 0
+  echo "%{$fg_bold[blue]%}(%{$fg_no_bold[yellow]%}%B${ref#refs/heads/}$(parse_git_dirty)%b%{$fg_bold[blue]%})%{$reset_color%} "
+}
+
+function parse_git_dirty() {
+  local STATUS=''
+  local FLAGS
+  FLAGS=('--porcelain')
+  FLAGS+='--ignore-submodules=dirty'
+  STATUS=$(command git status ${FLAGS} 2> /dev/null | tail -n1)
+  if [[ -n $STATUS ]]; then echo "%{$fg_bold[red]%}*%{$reset_color%}"; fi
+}
+
+function set_prompt() {
+  PROMPT="$(curent_user):$(ruby_version) $(node_version) $(current_dir) $(git_prompt_info)%(!.#.$) "
+  RPROMPT='[%*]'
+}
+
+precmd_functions+=(set_prompt)

@@ -1,0 +1,170 @@
+#!/bin/bash
+
+set -o nounset
+set -o errexit
+
+clean () {
+  local string=$@
+  string=`echo $string | tr -d [:punct:]`;
+  string=`echo $string | tr [:blank:] '-'`;
+  string=`echo $string | tr '[:upper:]' '[:lower:]'`
+  echo $string
+}
+
+info () {
+  local yellow=$(tput setaf 3)
+  local reset=$(tput sgr0)
+  echo "${yellow}$@${reset}"
+}
+
+success () {
+  local green=$(tput setaf 2)
+  local reset=$(tput sgr0)
+  echo "${green}$@${reset}"
+}
+
+warn () {
+  local red=$(tput setaf 1)
+  local reset=$(tput sgr0)
+  echo "${red}$@${reset}"
+}
+
+fail () {
+  local red=$(tput setaf 1)
+  local reset=$(tput sgr0)
+  echo >&2 "${red}$@${reset}"
+  exit 1
+}
+
+KATA_NAME=$(clean $@)
+
+if [[ -d "$KATA_NAME" && ! -L "$KATA_NAME" ]] ; then
+  fail "Directory already exists, cannot continue."
+fi
+
+info "Creating new kata."
+
+mkdir "$KATA_NAME" && cd "$KATA_NAME"
+
+mkdir -p "app/javascripts"
+mkdir -p "test/unit"
+
+cat <<EOF >package.json
+{
+  "name": "$KATA_NAME",
+  "description": "$@ Kata",
+  "private": true,
+  "devDependencies": {
+  },
+  "scripts": {
+    "karma": "NODE_ENV=test ./node_modules/.bin/karma start",
+    "mocha": "NODE_ENV=test ./node_modules/.bin/mocha ./test/**/*.spec.js  -r ./test/setup  -w"
+  }
+}
+EOF
+
+cat <<EOF >README.md
+# $@ Kata - $(date +%Y-%m-%d:%H:%M)
+EOF
+
+cat <<EOF >karma.conf.js
+module.exports = function(config) {
+  config.set({
+
+    // base path that will be used to resolve all patterns (eg. files, exclude)
+    basePath: '',
+
+    // frameworks to use
+    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+    frameworks: [
+        'browserify',
+        'chai',
+        'sinon',
+        'sinon-chai',
+        'mocha'
+    ],
+
+    // list of files / patterns to load in the browser
+    files: [
+      'test/**/*.spec.js'
+    ],
+
+    // preprocess matching files before serving them to the browser
+    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+    preprocessors: {
+       "test/**/*.spec.js": ["browserify"]
+    },
+
+    browserify: {
+      extensions: [".js"],
+      watch: true,
+      debug: true
+    },
+
+    // test results reporter to use
+    // possible values: 'dots', 'progress'
+    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+    reporters: ['mocha'],
+
+    // web server port
+    port: 9876,
+
+    // enable / disable colors in the output (reporters and logs)
+    colors: true,
+
+    // level of logging
+    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+    logLevel: config.LOG_INFO,
+
+    // enable / disable watching file and executing tests whenever any file changes
+    autoWatch: true,
+
+    // start these browsers
+    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+    browsers: ['PhantomJS'],
+
+    // Continuous Integration mode
+    // if true, Karma captures browsers, runs the tests and exits
+    singleRun: false
+  });
+};
+EOF
+
+cat <<EOF >app/javascripts/app.js
+"use strict";
+
+var App = function() {
+
+}
+
+module.exports = App;
+EOF
+
+cat <<EOF >test/setup.js
+"use strict";
+
+var chai = require("chai");
+global.should = chai.should();
+global.sinon = require("sinon");
+chai.use(require("sinon-chai"));
+EOF
+
+cat <<EOF >test/unit/app.spec.js
+"use strict";
+
+var App = require("../../app/javascripts/app");
+
+describe("the test", function() {
+  it("should pass", function() {
+    true.should.equal(true);
+  });
+});
+EOF
+
+git init >/dev/null
+
+info "Installing dependencies, please wait."
+
+npm install karma karma-cli karma-browserify chai mocha sinon sinon-chai karma-mocha karma-chai karma-mocha-reporter karma-sinon karma-sinon-chai karma-phantomjs-launcher --save-dev >/dev/null
+
+success "Kata created."

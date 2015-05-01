@@ -1,0 +1,11 @@
+#!/bin/sh
+STATUS=$(defaults read com.apple.finder AppleShowAllFiles)
+
+case "$STATUS" in
+    "TRUE") OPTION="FALSE" ;;
+    "FALSE") OPTION="TRUE" ;;
+esac
+
+defaults write com.apple.finder AppleShowAllFiles $OPTION
+
+killall Finder

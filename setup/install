@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+#
+# install standard packages.
+
+cd "$(dirname "$0")/.."
+DOTFILES_ROOT=$(pwd)
+
+set -e
+
+# install homebrew and standard packages
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew install zsh coreutils python chruby ruby-install nvm mysql tree hub cask
+
+# install python related packages
+pip install --upgrade setuptools
+pip install --upgrade pip
+pip install SpoofMAC
+
+# install latest stable version of ruby
+ruby-install stable
+
+# make zsh the default shell
+sudo bash -c 'echo "/usr/local/bin/zsh" >> /etc/shells'
+chsh -s /usr/local/bin/zsh
