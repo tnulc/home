@@ -197,6 +197,10 @@ function curent_user() {
   echo "%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%}"
 }
 
+function hostname() {
+  echo "%{$fg_bold[red]%}%M%{$reset_color%}"
+}
+
 function ruby_version() {
   local _ruby
   _ruby="$(chruby |grep \* |tr -d '* ')"
@@ -235,7 +239,7 @@ function parse_git_dirty() {
 }
 
 function set_prompt() {
-  PROMPT="$(curent_user):$(ruby_version) $(node_version) $(current_dir) $(git_prompt_info)%(!.#.$) "
+  PROMPT="$(curent_user)@$(hostname):$(ruby_version) $(node_version) $(current_dir) $(git_prompt_info)%(!.#.$) "
   RPROMPT='[%*]'
 }
 
