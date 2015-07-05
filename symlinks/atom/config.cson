@@ -1,0 +1,41 @@
+"*":
+  editor:
+    fontSize: 15
+    invisibles: {}
+    showIndentGuide: true
+    fontFamily: "Source Code Pro"
+  core:
+    ignoredNames: [
+      ".bundle"
+      ".git"
+      "log"
+      "repositories"
+      "tmp"
+      "vendor"
+    ]
+    projectHome: "/Users/kirisu/projects"
+    themes: [
+      "atom-material-ui"
+      "atom-material-syntax"
+    ]
+  "exception-reporting":
+    userId: "3198fe9b-d63e-48af-5023-150995ea6c55"
+  welcome:
+    showOnStartup: false
+  "atom-material-ui":
+    accentColor: "Blue"
+    panelContrast: true
+    disableAnimations: true
+    altCmdPalette: true
+    slimScrollbar: true
+  linter:
+    statusIconPosition: "Right"
+  "file-watcher":
+    promptWhenFileHasChangedOnDisk: false
+  "tool-bar":
+    position: "Left"
+    iconSize: "16px"
+  "mocha-test-runner":
+    nodeBinaryPath: "/Users/kirisu/.nvm/v0.10.39/bin/node"
+    env: "test"
+  react: {}
