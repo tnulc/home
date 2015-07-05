@@ -18,6 +18,11 @@
       "atom-material-ui"
       "atom-material-syntax"
     ]
+    disabledPackages: [
+      "background-tips"
+      "exception-reporting"
+      "metrics"
+    ]
   welcome:
     showOnStartup: false
   "atom-material-ui":
@@ -36,4 +41,3 @@
   "mocha-test-runner":
     nodeBinaryPath: "/Users/kirisu/.nvm/v0.10.39/bin/node"
     env: "test"
-  react: {}
