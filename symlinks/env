@@ -1,11 +1,5 @@
 # editor
-export EDITOR='sub'
-
-# node
-export NODE_ENV='development'
-
-# rails
-export RAILS_ENV='development'
+export EDITOR='atom'
 
 # homebrew cask
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
