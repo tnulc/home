@@ -21,6 +21,10 @@
       "background-tips"
       "exception-reporting"
       "metrics"
+      "wrap-guide"
+      "welcome"
+      "language-toml"
+      "autoflow"
     ]
   welcome:
     showOnStartup: false
@@ -41,3 +45,5 @@
   "mocha-test-runner":
     env: "test"
   react: {}
+  autosave:
+    enabled: true
