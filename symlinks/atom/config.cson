@@ -31,9 +31,10 @@
   "atom-material-ui":
     accentColor: "Cyan"
     panelContrast: true
-    disableAnimations: true
     altCmdPalette: true
     slimScrollbar: true
+    depth: true
+    disableAnimations: true
   linter:
     statusIconPosition: "Right"
     lintOnFly: false
@@ -47,3 +48,5 @@
   react: {}
   autosave:
     enabled: true
+  "linter-eslint":
+    disableWhenNoEslintrcFileInPath: true

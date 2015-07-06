@@ -176,14 +176,14 @@ zstyle -e ':completion:*:*:vim#:*:*' ignored-patterns \
   'texfiles=$(echo ${PREFIX}*.tex); [[ -n "$texfiles" ]] &&
   reply=(*.(aux|dvi|log|ps|pdf|bbl|toc|lot|lof|latexmain)) || reply=()'
 
-expand-or-complete-with-dots() {
-  echo -n "\e[31m......\e[0m"
-  zle expand-or-complete
-  zle redisplay
-}
+# expand-or-complete-with-dots() {
+#   echo -n "\e[31m......\e[0m"
+#   zle expand-or-complete
+#   zle redisplay
+# }
 
-zle -N expand-or-complete-with-dots
-bindkey "^I" expand-or-complete-with-dots
+# zle -N expand-or-complete-with-dots
+# bindkey "^I" expand-or-complete-with-dots
 
 unset config_files
 
@@ -205,9 +205,9 @@ function ruby_version() {
   local _ruby
   _ruby="$(chruby |grep \* |tr -d '* ')"
   if [[ $(chruby |grep -c \*) -eq 1 ]]; then
-      echo "%{$fg[red]%}${_ruby}%{$reset_color%}"
+    echo "%{$fg[red]%}${_ruby}%{$reset_color%}"
   else
-      echo "%{$fg[red]%}system%{$reset_color%}"
+    echo "%{$fg[red]%}system%{$reset_color%}"
   fi
 }
 
