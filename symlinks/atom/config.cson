@@ -39,5 +39,4 @@
     iconSize: "16px"
   "mocha-test-runner":
     env: "test"
-    nodeBinaryPath: "/Users/kirisu/.nvm/v0.10.39/bin/node"
   react: {}
