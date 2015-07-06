@@ -13,7 +13,6 @@
       "tmp"
       "vendor"
     ]
-    projectHome: "/Users/kirisu/projects"
     themes: [
       "atom-material-ui"
       "atom-material-syntax"
@@ -39,6 +38,6 @@
     position: "Left"
     iconSize: "16px"
   "mocha-test-runner":
-    nodeBinaryPath: "/Users/kirisu/.nvm/v0.10.39/bin/node"
     env: "test"
+    nodeBinaryPath: "/Users/kirisu/.nvm/v0.10.39/bin/node"
   react: {}

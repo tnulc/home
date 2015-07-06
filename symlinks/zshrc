@@ -4,7 +4,7 @@
 export DOTFILES=$HOME/.dotfiles
 
 # project folder that we can `c [tab]` to
-export PROJECTS=$HOME/Projects
+export PROJECTS=$HOME/github
 
 # store for various dumped files
 export VARDIR=$HOME/.var
