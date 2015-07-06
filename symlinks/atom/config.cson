@@ -32,6 +32,7 @@
     slimScrollbar: true
   linter:
     statusIconPosition: "Right"
+    lintOnFly: false
   "file-watcher":
     promptWhenFileHasChangedOnDisk: false
   "tool-bar":
