@@ -25,16 +25,17 @@
       "welcome"
       "language-toml"
       "autoflow"
+      "linter-scss-lint"
     ]
   welcome:
     showOnStartup: false
   "atom-material-ui":
-    accentColor: "Cyan"
     panelContrast: true
     altCmdPalette: true
     slimScrollbar: true
     depth: true
     disableAnimations: true
+    accentColor: "Purple"
   linter:
     statusIconPosition: "Right"
     lintOnFly: false
@@ -50,3 +51,6 @@
     enabled: true
   "linter-eslint":
     disableWhenNoEslintrcFileInPath: true
+    lintOnEdit: false
+  "linter-scss-lint": {}
+  "merge-conflicts": {}
