@@ -26,11 +26,13 @@
       "language-toml"
       "autoflow"
       "linter-scss-lint"
+      "dev-live-reload"
     ]
   welcome:
     showOnStartup: false
   "atom-material-ui":
     panelContrast: true
+    disableAnimations: true
     altCmdPalette: true
     slimScrollbar: true
     depth: true
