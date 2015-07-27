@@ -25,7 +25,6 @@
       "welcome"
       "language-toml"
       "autoflow"
-      "linter-scss-lint"
       "dev-live-reload"
     ]
   welcome:
