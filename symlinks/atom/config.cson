@@ -25,18 +25,17 @@
       "welcome"
       "language-toml"
       "autoflow"
-      "dev-live-reload"
     ]
   welcome:
     showOnStartup: false
   "atom-material-ui":
     panelContrast: true
-    disableAnimations: true
     altCmdPalette: true
     slimScrollbar: true
-    depth: true
+    accentColor: "Yellow"
+    compactTreeView: true
+    rippleAccentColor: true
     disableAnimations: true
-    accentColor: "Purple"
   linter:
     statusIconPosition: "Right"
     lintOnFly: false
@@ -55,3 +54,6 @@
     lintOnEdit: false
   "linter-scss-lint": {}
   "merge-conflicts": {}
+  "atom-beautify":
+    _analyticsUserId: "76311505-940d-45f7-9bed-ab533bac8ef9"
+  "tree-view": {}

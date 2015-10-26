@@ -10,6 +10,9 @@ export PROJECTS=$HOME/github
 export VARDIR=$HOME/.var
 export ZSH_VARDIR=$VARDIR/zsh
 
+# Android SDK home
+export ANDROID_HOME=/usr/local/opt/android-sdk
+
 # use .env for environment variables
 if [[ -a $HOME/.env ]]
 then
