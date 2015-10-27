@@ -25,17 +25,21 @@
       "welcome"
       "language-toml"
       "autoflow"
+      "dev-live-reload"
+      "linter-scss-lint"
     ]
   welcome:
     showOnStartup: false
   "atom-material-ui":
-    panelContrast: true
     altCmdPalette: true
     slimScrollbar: true
     accentColor: "Yellow"
-    compactTreeView: true
     rippleAccentColor: true
+    compactTreeView: true
+    themeSyle: "Darker"
+    panelContrast: true
     disableAnimations: true
+    depth: true
   linter:
     statusIconPosition: "Right"
     lintOnFly: false
