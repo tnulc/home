@@ -30,16 +30,6 @@
     ]
   welcome:
     showOnStartup: false
-  "atom-material-ui":
-    altCmdPalette: true
-    slimScrollbar: true
-    accentColor: "Yellow"
-    rippleAccentColor: true
-    compactTreeView: true
-    themeSyle: "Darker"
-    panelContrast: true
-    disableAnimations: true
-    depth: true
   linter:
     statusIconPosition: "Right"
     lintOnFly: false
@@ -61,3 +51,15 @@
   "atom-beautify":
     _analyticsUserId: "76311505-940d-45f7-9bed-ab533bac8ef9"
   "tree-view": {}
+  "atom-material-ui":
+    ui:
+      disableAnimations: true
+      slimScrollbar: true
+      accentColor: "Yellow"
+    tabs:
+      tabSize: "Small"
+    treeView:
+      compactTreeView: true
+    panels:
+      depth: true
+    fonts: {}
