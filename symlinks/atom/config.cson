@@ -1,10 +1,32 @@
 "*":
-  editor:
-    fontSize: 15
-    invisibles: {}
-    showIndentGuide: true
-    fontFamily: "Source Code Pro"
+  "atom-beautify":
+    _analyticsUserId: "76311505-940d-45f7-9bed-ab533bac8ef9"
+  "atom-material-ui":
+    fonts: {}
+    panels:
+      depth: true
+    tabs:
+      tabSize: "Small"
+    treeView:
+      compactTreeView: true
+    ui:
+      accentColor: "Yellow"
+      disableAnimations: true
+      slimScrollbar: true
+  autosave:
+    enabled: true
   core:
+    disabledPackages: [
+      "background-tips"
+      "exception-reporting"
+      "metrics"
+      "wrap-guide"
+      "welcome"
+      "language-toml"
+      "autoflow"
+      "dev-live-reload"
+      "linter-scss-lint"
+    ]
     ignoredNames: [
       ".bundle"
       ".git"
@@ -17,49 +39,27 @@
       "atom-material-ui"
       "atom-material-syntax"
     ]
-    disabledPackages: [
-      "background-tips"
-      "exception-reporting"
-      "metrics"
-      "wrap-guide"
-      "welcome"
-      "language-toml"
-      "autoflow"
-      "dev-live-reload"
-      "linter-scss-lint"
-    ]
-  welcome:
-    showOnStartup: false
-  linter:
-    statusIconPosition: "Right"
-    lintOnFly: false
+  editor:
+    fontFamily: "Source Code Pro"
+    fontSize: 15
+    invisibles: {}
+    showIndentGuide: true
   "file-watcher":
     promptWhenFileHasChangedOnDisk: false
-  "tool-bar":
-    position: "Left"
-    iconSize: "16px"
-  "mocha-test-runner":
-    env: "test"
-  react: {}
-  autosave:
-    enabled: true
+  linter:
+    lintOnFly: false
+    statusIconPosition: "Right"
   "linter-eslint":
     disableWhenNoEslintrcFileInPath: true
     lintOnEdit: false
   "linter-scss-lint": {}
   "merge-conflicts": {}
-  "atom-beautify":
-    _analyticsUserId: "76311505-940d-45f7-9bed-ab533bac8ef9"
+  "mocha-test-runner":
+    env: "test"
+  react: {}
+  "tool-bar":
+    iconSize: "16px"
+    position: "Left"
   "tree-view": {}
-  "atom-material-ui":
-    ui:
-      disableAnimations: true
-      slimScrollbar: true
-      accentColor: "Yellow"
-    tabs:
-      tabSize: "Small"
-    treeView:
-      compactTreeView: true
-    panels:
-      depth: true
-    fonts: {}
+  welcome:
+    showOnStartup: false
