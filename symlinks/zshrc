@@ -12,6 +12,9 @@ export ZSH_VARDIR=$VARDIR/zsh
 
 # Android SDK home
 export ANDROID_HOME=/usr/local/opt/android-sdk
+export ANDROID_TOOLS=$ANDROID_HOME/tools
+export ANDROID_BUILD_TOOLS=$ANDROID_HOME/build-tools/23.0.2
+export ANDROID_PLATFORM_TOOLS=$ANDROID_HOME/platform-tools
 
 # use .env for environment variables
 if [[ -a $HOME/.env ]]
@@ -47,6 +50,7 @@ export ARCHFLAGS="-arch x86_64"
 export PATH=`echo ":$PATH:" | sed -e "s:\:/usr/local/bin\::\::g" -e "s/^://" -e "s/:$//"`
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/X11R6/bin:$DOTFILES/bin:$DOTFILES/share:$PATH"
 export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+export PATH="$ANDROID_HOME:$ANDROID_TOOLS:$ANDROID_BUILD_TOOLS:$ANDROID_PLATFORM_TOOLS:$PATH"
 export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
 export NODE_PATH="$NODE_PATH:/bin/sh"
 
