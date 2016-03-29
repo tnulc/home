@@ -15,20 +15,13 @@
         alpha: 1
       predefinedColor: "Amber"
     fonts: {}
-    panels:
-      depth: true
-      panelContrast: true
     tabs:
       compactTabs: true
-      rippleAccentColor: true
-      tabMinWidth: true
     treeView:
       compactList: true
-      compactTreeView: true
     ui:
       panelContrast: true
       panelShadows: true
-      slimScrollbar: true
   autosave:
     enabled: true
   core:

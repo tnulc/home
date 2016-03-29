@@ -28,6 +28,8 @@ then
   source $HOME/.env-local
 fi
 
+[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+
 # setup history
 HISTFILE=$ZSH_VARDIR/.zsh_history
 HISTSIZE=10000
