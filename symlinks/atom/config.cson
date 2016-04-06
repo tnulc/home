@@ -35,7 +35,6 @@
       "language-toml"
       "autoflow"
       "dev-live-reload"
-      "linter-scss-lint"
     ]
     ignoredNames: [
       ".bundle"
