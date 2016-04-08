@@ -1,6 +1,52 @@
 "*":
   "atom-beautify":
     _analyticsUserId: "76311505-940d-45f7-9bed-ab533bac8ef9"
+    apex: {}
+    arduino: {}
+    c: {}
+    cfml: {}
+    coffeescript: {}
+    cpp: {}
+    cs: {}
+    css: {}
+    d: {}
+    ejs: {}
+    erb: {}
+    fortran: {}
+    general: {}
+    gherkin: {}
+    handlebars: {}
+    html: {}
+    jade: {}
+    java: {}
+    js: {}
+    json: {}
+    jsx: {}
+    latex: {}
+    less: {}
+    marko: {}
+    mustache: {}
+    objectivec: {}
+    pawn: {}
+    perl: {}
+    php: {}
+    python: {}
+    riot: {}
+    ruby: {}
+    rust: {}
+    sass: {}
+    scss: {}
+    spacebars: {}
+    sql: {}
+    svg: {}
+    swig: {}
+    tss: {}
+    twig: {}
+    typescript: {}
+    vala: {}
+    visualforce: {}
+    xml: {}
+    xtemplate: {}
   "atom-material-ui":
     colors:
       abaseColor:

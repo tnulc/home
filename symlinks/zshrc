@@ -54,6 +54,7 @@ export PATH="/usr/local/bin:/usr/local/sbin:/usr/X11R6/bin:$DOTFILES/bin:$DOTFIL
 export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 export PATH="$ANDROID_HOME:$ANDROID_TOOLS:$ANDROID_BUILD_TOOLS:$ANDROID_PLATFORM_TOOLS:$PATH"
 export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
+export MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
 export NODE_PATH="$NODE_PATH:/bin/sh"
 
 # set prompt colours
