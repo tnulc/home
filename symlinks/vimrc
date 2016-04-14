@@ -13,13 +13,14 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'jelera/vim-javascript-syntax'
@@ -32,6 +33,8 @@ Plugin 'tpope/vim-leiningen'
 Plugin 'tpope/vim-classpath'
 Plugin 'chriskempson/base16-vim'
 Plugin 'elzr/vim-json'
+
+let base16colorspace=256
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -52,6 +55,10 @@ call vundle#end()            " required
 
 "Set viminfo location
 set viminfo+=n~/.vim/viminfo
+
+"Set the color scheme. Change this to your preference.
+colorscheme base16-solarized
+set background=dark
 
 "Enable filetypes
 filetype on
@@ -75,10 +82,6 @@ set timeoutlen=500
 
 "Switch between buffers without saving
 set hidden
-
-"Set the color scheme. Change this to your preference.
-colorscheme base16-solarized
-set background=dark
 
 " Remove right and left scrollbars
 set guioptions-=R
