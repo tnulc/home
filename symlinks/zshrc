@@ -216,24 +216,6 @@ function hostname() {
   echo "%{$fg_bold[red]%}%M%{$reset_color%}"
 }
 
-function ruby_version() {
-  local _ruby
-  _ruby="$(chruby |grep \* |tr -d '* ')"
-  if [[ $(chruby |grep -c \*) -eq 1 ]]; then
-    echo "%{$fg[red]%}${_ruby}%{$reset_color%}"
-  else
-    echo "%{$fg[red]%}system%{$reset_color%}"
-  fi
-}
-
-function node_version() {
-  local _node
-  _node=$(node -v 2>/dev/null)
-  [[ "${_node}x" == "x" ]] && return
-  _node=${_node:1}
-  echo "%{$fg[green]%}node-${_node}%{$reset_color%}"
-}
-
 function current_dir() {
   echo "%{$fg[blue]%}%B%c/%b%{$reset_color%}"
 }
@@ -254,7 +236,7 @@ function parse_git_dirty() {
 }
 
 function set_prompt() {
-  PROMPT="$(curent_user)@$(hostname):$(ruby_version) $(node_version) $(current_dir) $(git_prompt_info)%(!.#.$) "
+  PROMPT="$(curent_user)@$(hostname):$(current_dir) $(git_prompt_info)%(!.#.$) "
   RPROMPT='[%*]'
 }
 
