@@ -3,24 +3,16 @@ BASE16_SHELL="$HOME/.config/base16-shell/base16-solarized.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
 # only define LC_CTYPE if undefined
-if [[ -z "$LC_CTYPE" && -z "$LC_ALL" ]]; then
-  export LC_CTYPE=${LANG%%:*} # pick the first entry from LANG
-fi
+if [[ -z "$LC_CTYPE" && -z "$LC_ALL" ]]; then export LC_CTYPE=${LANG%%:*}; fi
 
 # shortcut to this dotfiles path is $DOTFILES
 export DOTFILES=$HOME/.dotfiles
 
 # use .env for environment variables
-if [[ -a $HOME/.env ]]
-then
-  source $HOME/.env
-fi
+if [[ -a $HOME/.env ]]; then source $HOME/.env; fi
 
 # use .env-local for environment variables you dont want in git
-if [[ -a $HOME/.env-local ]]
-then
-  source $HOME/.env-local
-fi
+if [[ -a $HOME/.env-local ]]; then source $HOME/.env-local; fi
 
 # setup path
 export PATH=`echo ":$PATH:" | sed -e "s:\:/usr/local/bin\::\::g" -e "s/^://" -e "s/:$//"`
@@ -34,16 +26,10 @@ fpath=($DOTFILES/functions $DOTFILES/completions $fpath)
 autoload -U $DOTFILES/functions/*(:t)
 autoload -U $DOTFILES/completions/*(:t)
 
-# all of our zsh files
+# load in config files
 typeset -U config_files
 config_files=($DOTFILES/config/**/*.zsh)
-
-# load config files
-for file in $config_files
-do
- source $file
-done
-
+for file in $config_files; do source $file; done
 unset config_files
 
 # set prompt colours
