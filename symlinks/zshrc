@@ -5,6 +5,9 @@ BASE16_SHELL="$HOME/.config/base16-shell/base16-solarized.dark.sh"
 # only define LC_CTYPE if undefined
 if [[ -z "$LC_CTYPE" && -z "$LC_ALL" ]]; then export LC_CTYPE=${LANG%%:*}; fi
 
+# split paths at forward slashes
+WORDCHARS=$WORDCHARS:s:/:
+
 # shortcut to this dotfiles path is $DOTFILES
 export DOTFILES=$HOME/.dotfiles
 
@@ -21,179 +24,29 @@ export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 if [[ -a $ANDROID_HOME ]]; then export PATH="$ANDROID_PLATFORM_TOOLS:$ANDROID_BUILD_TOOLS:$ANDROID_TOOLS:$ANDROID_HOME:$PATH"; fi
 export NODE_PATH="$NODE_PATH:/bin/sh"
 
+# set prompt colours
+autoload -U colors && colors
+if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="white"; fi
+if [[ x$WINDOW != x ]]; then SCREEN_NO="%B$WINDOW%b "; else SCREEN_NO=""; fi
+
 # load in our custom functions/completions
 fpath=($DOTFILES/functions $DOTFILES/completions $fpath)
 autoload -U $DOTFILES/functions/*(:t)
 autoload -U $DOTFILES/completions/*(:t)
+
+# initialize autocomplete here, otherwise functions won't be loaded
+autoload -Uz compinit
+compinit -C -d $ZSH_VARDIR/comp-$HOST
+zmodload -i zsh/complist
+zmodload -a zsh/stat stat
+zmodload -a zsh/zpty zpty
+zmodload -ap zsh/mapfile mapfile
 
 # load in config files
 typeset -U config_files
 config_files=($DOTFILES/config/**/*.zsh)
 for file in $config_files; do source $file; done
 unset config_files
-
-# set prompt colours
-autoload -U colors && colors
-if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="white"; fi
-if [[ x$WINDOW != x ]]; then SCREEN_NO="%B$WINDOW%b "; else SCREEN_NO=""; fi
-
-WORDCHARS=$WORDCHARS:s:/:
-
-# initialize autocomplete here, otherwise functions won't be loaded
-zmodload -i zsh/complist
-autoload -Uz compinit
-compinit -C -d $ZSH_VARDIR/comp-$HOST
-zmodload -a zsh/stat stat
-zmodload -a zsh/zpty zpty
-zmodload -ap zsh/mapfile mapfile
-
-# ===== Basics
-setopt nobeep # don't beep on errors
-setopt nolistbeep # don't on ambiguous completion
-setopt interactivecomments # Allow comments even in interactive shells
-
-# ===== Expansion and Globbing
-unsetopt nomatch # no error if glob fails to expand
-unsetopt flowcontrol # turn off output flow control
-unsetopt menucomplete # do not autoselect the first completion entry
-setopt completealiases # don't expand aliases _before_ completion has finished like: git comm-[tab]
-setopt extendedglob # in order to use #, ~ and ^ for filename generation
-setopt recexact # recognise exact matches even if they're ambiguous
-setopt autolist # automatically list choices on an ambiguous completion
-setopt listpacked # pack the lists with variable width columns
-setopt autoparamkeys autoparamslash autoremoveslash # be magic about adding/removing final characters on tab completion
-
-# ===== Changing Directories
-setopt autocd # change directory without cd
-setopt cdablevars # if argument to cd is the name of a parameter whose value is a valid directory, it will become the current directory
-setopt pushdignoredups # don't push multiple copies of the same directory onto the directory stack
-setopt chasedots # replace ../ by the right directory
-setopt autopushd  # automatically append dirs to the push/pop list
-setopt pushdignoredups # and don't duplicate them
-setopt pushdsilent # pushd will not print the directory stack after each invocation
-setopt pushdminus # - and + are reversed after cd
-setopt pushdtohome # pushd with no parameters acts like 'pushd $HOME'
-
-# ===== History
-setopt appendhistory # append to history rather than overwrite
-setopt extendedhistory # save beginning and ending timestamps to the history file
-setopt incappendhistory # add immediately
-setopt histexpiredupsfirst # remove oldest duplicate first
-setopt histignorealldups  # don't record dupes in history
-setopt histignorespace # remove command line from history list when first character on the line is a space
-setopt histreduceblanks #remove extra blanks from each command line being added to history
-setopt histverify # don't execute the line directly; perform history substitution and reload line into the editing buffer
-setopt sharehistory # share command history data
-setopt nohistbeep # don't beep for erroneous history expansions
-
-# ===== Completion
-setopt alwaystoend # when completing from the middle of a word, move the cursor to the end of the word
-setopt automenu # show completion menu on successive tab press. needs unsetop menu_complete to work
-setopt autonamedirs # any parameter that is set to the absolute name of a directory immediately becomes a name for that directory
-setopt completeinword # allow completion from within a word/phrase
-
-# ===== Correction
-unsetopt correctall # spelling correction for arguments
-setopt correct # spelling correction for commands
-
-# ===== Prompt
-setopt promptsubst # Enable parameter expansion, command substitution, and arithmetic expansion in the prompt
-
-# ===== Scripts and Functions
-setopt multios # perform implicit tees or cats when multiple redirections are attempted
-setopt localoptions # allow functions to have local options
-setopt localtraps # allow functions to have local traps
-setopt ignoreeof # ignore EOF
-
-# ===== Jobs
-setopt longlistjobs # list jobs in long format
-setopt nobgnice # run bg processes at full speed
-setopt nocheckjobs # don't warn me about bg processes when exiting
-setopt nohup # and don't kill them, either
-
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # use nice colors for completion lists
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-
-zstyle ':completion:*' insert-tab pending # pasting with tabs doesn't perform completion
-
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path $ZSH_VARDIR/compcache
-zstyle ':completion:*' special-dirs true
-
-# list of completers to use
-zstyle ':completion:*::::' completer _complete _ignored _match _approximate _list _prefix
-
-# allow one error for every three characters typed in approximate completer
-zstyle -e ':completion:*:approximate:*' max-errors \
-    'reply=( $(( ($#PREFIX+$#SUFFIX)/3 )) numeric )'
-
-# formatting and messages
-zstyle ':completion:*:default' menu select = 2
-zstyle ':completion:*' verbose yes
-zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
-zstyle ':completion:*:messages' format '%d'
-zstyle ':completion:*:warnings' format $fg_bold[red]'No matches for: %d'
-zstyle ':completion:*:descriptions' format $fg_bold[white]'%U%d%b%u'
-zstyle ':completion:*:options' description 'yes'
-zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
-zstyle ':completion:*:expand:*' tag-order all-expansions
-zstyle ':completion:*' group-name ''
-
-zstyle ':completion:*' list-separator '->'
-zstyle ':completion:*:manuals' separate-sections true
-
-# match uppercase from lowercase
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-
-# offer indexes before parameters in subscripts
-zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
-
-# Use 'ps -au$USER' for fetch user process list
-zstyle ':completion:*:processes' command 'ps -au$USER'
-
-# files to ignore
-zstyle ':completion:*:(all-|)files' ignored-patterns '*.bk' '*.bak' '*.old' '*~' '.*.sw?'
-zstyle ':completion:*:(all-|)files' ignored-patterns '(|*/)svn'
-zstyle ':completion:*:cd:*' ignored-patterns '(*/)#svn'
-
-zstyle ':completion:*:*:zless:*' file-patterns '*(-/):directories *.gz:all-files'
-zstyle ':completion:*:*:lintian:*' file-patterns '*(-/):directories *.deb'
-
-zstyle ':completion:*:*:less:*' ignored-patterns '*.gz'
-zstyle ':completion:*:*:zcompile:*' ignored-patterns '(*~|*.zwc)'
-
-zstyle ':completion:*:*:*:*:*' menu select
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
-zstyle ':completion:*:*:(kill|killall):*' force-list always
-
-# disable named-directories autocompletion
-zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
-
-# use caching so that commands like apt and dpkg complete are useable
-zstyle ':completion::complete:*' use-cache 1
-zstyle ':completion::complete:*' cache-path $ZSH_VARDIR
-
-# ignored function patterns
-zstyle ':completion:*:functions' ignored-patterns '_*'
-
-# don't complete uninteresting users
-zstyle ':completion:*:*:*:users' ignored-patterns \
-        adm amanda apache at avahi avahi-autoipd beaglidx bin cacti canna \
-        clamav daemon dbus distcache dnsmasq dovecot fax ftp games gdm \
-        gkrellmd gopher hacluster haldaemon halt hsqldb ident junkbust kdm \
-        ldap lp mail mailman mailnull man messagebus  mldonkey mysql nagios \
-        named netdump news nfsnobody nobody nscd ntp nut nx obsrun openvpn \
-        operator pcap polkitd postfix postgres privoxy pulse pvm quagga radvd \
-        rpc rpcuser rpm rtkit scard shutdown squid sshd statd svn sync tftp \
-        usbmux uucp vcsa wwwrun xfs '_*'
-
-# ... unless we really want to.
-zstyle '*' single-ignored show
-
-# http://xana.scru.org/2005/08/20#ignorelatexjunk
-zstyle -e ':completion:*:*:vim#:*:*' ignored-patterns \
-  'texfiles=$(echo ${PREFIX}*.tex); [[ -n "$texfiles" ]] &&
-  reply=(*.(aux|dvi|log|ps|pdf|bbl|toc|lot|lof|latexmain)) || reply=()'
 
 function curent_user() {
   echo "%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%}"
