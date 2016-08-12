@@ -29,9 +29,10 @@ export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 if [[ -a $ANDROID_HOME ]]; then export PATH="$ANDROID_PLATFORM_TOOLS:$ANDROID_BUILD_TOOLS:$ANDROID_TOOLS:$ANDROID_HOME:$PATH"; fi
 export NODE_PATH="$NODE_PATH:/bin/sh"
 
-# load in our custom functions
-fpath=($DOTFILES/functions $fpath)
+# load in our custom functions/completions
+fpath=($DOTFILES/functions $DOTFILES/completions $fpath)
 autoload -U $DOTFILES/functions/*(:t)
+autoload -U $DOTFILES/completions/*(:t)
 
 # all of our zsh files
 typeset -U config_files
