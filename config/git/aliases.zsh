@@ -16,4 +16,3 @@ alias gs='git status -sb'
 alias ga="git add -A"
 alias gc='git commit'
 alias gcm='git commit -m'
-alias vi='vim'
