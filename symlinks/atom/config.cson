@@ -64,8 +64,10 @@
     tabs:
       compactTabs: true
     treeView:
+      blendTabs: true
       compactList: true
     ui:
+      animations: false
       panelContrast: true
       panelShadows: true
   autosave:
@@ -97,10 +99,8 @@
     ]
   editor:
     fontFamily: "Source Code Pro"
-    fontSize: 15
     invisibles: {}
     showIndentGuide: true
-    useShadowDOM: true
   "file-watcher":
     promptWhenFileHasChangedOnDisk: false
   linter:
@@ -115,7 +115,7 @@
     env: "test"
   react: {}
   "tool-bar":
-    iconSize: "16px"
+    iconSize: "12px"
     position: "Left"
   "tree-view": {}
   welcome:

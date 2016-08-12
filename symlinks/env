@@ -1,5 +1,27 @@
+
+# project folder that we can `c [tab]` to
+export PROJECTS=$HOME/github
+
+# store for various dumped files
+export VARDIR=$HOME/.var
+export ZSH_VARDIR=$VARDIR/zsh
+
+# compilation flags
+export ARCHFLAGS="-arch x86_64"
+
 # editor
 export EDITOR='atom'
 
 # homebrew cask
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+# docker
+export DOCKER_HOST=tcp://192.168.99.100:2376
+export DOCKER_CERT_PATH=/Users/e0047163/.docker/machine/machines/dinghy
+export DOCKER_TLS_VERIFY=1
+export DOCKER_MACHINE_NAME=dinghy
+
+export ANDROID_HOME=/usr/local/opt/android-sdk
+export ANDROID_TOOLS=$ANDROID_HOME/tools
+export ANDROID_BUILD_TOOLS=$ANDROID_HOME/build-tools
+export ANDROID_PLATFORM_TOOLS=$ANDROID_HOME/platform-tools
