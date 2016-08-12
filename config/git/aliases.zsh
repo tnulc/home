@@ -1,13 +1,13 @@
 # Use `hub` as our git wrapper:
 #   http://defunkt.github.com/hub/
-hub_path=$(which hub)
 if (( $+commands[hub] ))
 then
+  hub_path=$(which hub)
   alias git=$hub_path
 fi
 
 # The rest of my fun git aliases
-# alias gl='git pull --prune'
+alias gl='git pull --prune'
 alias gp='git push origin HEAD'
 alias gd='git diff'
 alias gca='git commit -a'
