@@ -24,11 +24,9 @@ fi
 
 # setup path
 export PATH=`echo ":$PATH:" | sed -e "s:\:/usr/local/bin\::\::g" -e "s/^://" -e "s/:$//"`
-export PATH="/usr/local/bin:/usr/local/sbin:/usr/X11R6/bin:$DOTFILES/bin:$DOTFILES/share:$PATH"
+export PATH="/usr/local/bin:/usr/local/sbin:$DOTFILES/bin:$PATH"
 export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-export PATH="$ANDROID_HOME:$ANDROID_TOOLS:$ANDROID_BUILD_TOOLS:$ANDROID_PLATFORM_TOOLS:$PATH"
-export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
-export MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
+if [[ -a $ANDROID_HOME ]]; then export PATH="$ANDROID_PLATFORM_TOOLS:$ANDROID_BUILD_TOOLS:$ANDROID_TOOLS:$ANDROID_HOME:$PATH"; fi
 export NODE_PATH="$NODE_PATH:/bin/sh"
 
 # load in our custom functions
