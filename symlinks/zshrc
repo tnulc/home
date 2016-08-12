@@ -2,6 +2,11 @@
 BASE16_SHELL="$HOME/.config/base16-shell/base16-solarized.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
+# only define LC_CTYPE if undefined
+if [[ -z "$LC_CTYPE" && -z "$LC_ALL" ]]; then
+  export LC_CTYPE=${LANG%%:*} # pick the first entry from LANG
+fi
+
 # shortcut to this dotfiles path is $DOTFILES
 export DOTFILES=$HOME/.dotfiles
 
@@ -42,50 +47,87 @@ done
 
 unset config_files
 
-# LS colors, made with http://geoff.greer.fm/lscolors/
-export LSCOLORS="Gxfxcxdxbxegedabagacad"
-export LS_COLORS='no=00:fi=00:di=01;34:ln=00;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=41;33;01:ex=00;32:*.cmd=00;32:*.exe=01;32:*.com=01;32:*.bat=01;32:*.btm=01;32:*.dll=01;32:*.tar=00;31:*.tbz=00;31:*.tgz=00;31:*.rpm=00;31:*.deb=00;31:*.arj=00;31:*.taz=00;31:*.lzh=00;31:*.lzma=00;31:*.zip=00;31:*.zoo=00;31:*.z=00;31:*.Z=00;31:*.gz=00;31:*.bz2=00;31:*.tb2=00;31:*.tz2=00;31:*.tbz2=00;31:*.avi=01;35:*.bmp=01;35:*.fli=01;35:*.gif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mng=01;35:*.mov=01;35:*.mpg=01;35:*.pcx=01;35:*.pbm=01;35:*.pgm=01;35:*.png=01;35:*.ppm=01;35:*.tga=01;35:*.tif=01;35:*.xbm=01;35:*.xpm=01;35:*.dl=01;35:*.gl=01;35:*.wmv=01;35:*.aiff=00;32:*.au=00;32:*.mid=00;32:*.mp3=00;32:*.ogg=00;32:*.voc=00;32:*.wav=00;32:'
-export CLICOLOR=true
-
 # set prompt colours
 autoload -U colors && colors
-
 if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="white"; fi
 if [[ x$WINDOW != x ]]; then SCREEN_NO="%B$WINDOW%b "; else SCREEN_NO=""; fi
 
-unalias run-help
-HELPDIR=/usr/local/share/zsh/help
-autoload run-help
-
-# initialize autocomplete here, otherwise functions won't be loaded
-autoload -Uz compinit
-compinit -C -d $ZSH_VARDIR/comp-$HOST
-
-unsetopt menucomplete # do not autoselect the first completion entry
-unsetopt flowcontrol
-unsetopt nomatch
-
-setopt alwaystoend # move cursor to end of word being completed
-setopt autoparamkeys autoparamslash autoremoveslash # be magic about adding/removing final characters on tab completion
-setopt completealiases # don't expand aliases _before_ completion has finished like: git comm-[tab]
-setopt extendedglob # in order to use #, ~ and ^ for filename generation
-setopt autolist # automatically list choices on an ambiguous completion
-setopt automenu # use menu after the second completion request
-setopt listpacked # pack the lists with variable width columns
-setopt recexact # recognise exact matches even if they're ambiguous
-setopt correct  # try to correct the spelling if possible
-setopt correctall # correct all arguments, not just the command
-setopt completeinword # complete from both sides
-setopt chasedots # replace ../ by the right directory
-
 WORDCHARS=$WORDCHARS:s:/:
 
+# initialize autocomplete here, otherwise functions won't be loaded
 zmodload -i zsh/complist
+autoload -Uz compinit
+compinit -C -d $ZSH_VARDIR/comp-$HOST
+zmodload -a zsh/stat stat
+zmodload -a zsh/zpty zpty
+zmodload -ap zsh/mapfile mapfile
+
+# ===== Basics
+setopt nobeep # don't beep on errors
+setopt nolistbeep # don't on ambiguous completion
+setopt interactivecomments # Allow comments even in interactive shells
+
+# ===== Expansion and Globbing
+unsetopt nomatch # no error if glob fails to expand
+unsetopt flowcontrol # turn off output flow control
+unsetopt menucomplete # do not autoselect the first completion entry
+setopt completealiases # don't expand aliases _before_ completion has finished like: git comm-[tab]
+setopt extendedglob # in order to use #, ~ and ^ for filename generation
+setopt recexact # recognise exact matches even if they're ambiguous
+setopt autolist # automatically list choices on an ambiguous completion
+setopt listpacked # pack the lists with variable width columns
+setopt autoparamkeys autoparamslash autoremoveslash # be magic about adding/removing final characters on tab completion
+
+# ===== Changing Directories
+setopt autocd # change directory without cd
+setopt cdablevars # if argument to cd is the name of a parameter whose value is a valid directory, it will become the current directory
+setopt pushdignoredups # don't push multiple copies of the same directory onto the directory stack
+setopt chasedots # replace ../ by the right directory
+setopt autopushd  # automatically append dirs to the push/pop list
+setopt pushdignoredups # and don't duplicate them
+setopt pushdsilent # pushd will not print the directory stack after each invocation
+setopt pushdminus # - and + are reversed after cd
+setopt pushdtohome # pushd with no parameters acts like 'pushd $HOME'
+
+# ===== History
+setopt appendhistory # append to history rather than overwrite
+setopt extendedhistory # save beginning and ending timestamps to the history file
+setopt incappendhistory # add immediately
+setopt histexpiredupsfirst # remove oldest duplicate first
+setopt histignorealldups  # don't record dupes in history
+setopt histignorespace # remove command line from history list when first character on the line is a space
+setopt histreduceblanks #remove extra blanks from each command line being added to history
+setopt histverify # don't execute the line directly; perform history substitution and reload line into the editing buffer
+setopt sharehistory # share command history data
+setopt nohistbeep # don't beep for erroneous history expansions
+
+# ===== Completion
+setopt alwaystoend # when completing from the middle of a word, move the cursor to the end of the word
+setopt automenu # show completion menu on successive tab press. needs unsetop menu_complete to work
+setopt autonamedirs # any parameter that is set to the absolute name of a directory immediately becomes a name for that directory
+setopt completeinword # allow completion from within a word/phrase
+
+# ===== Correction
+unsetopt correctall # spelling correction for arguments
+setopt correct # spelling correction for commands
+
+# ===== Prompt
+setopt promptsubst # Enable parameter expansion, command substitution, and arithmetic expansion in the prompt
+
+# ===== Scripts and Functions
+setopt multios # perform implicit tees or cats when multiple redirections are attempted
+setopt localoptions # allow functions to have local options
+setopt localtraps # allow functions to have local traps
+setopt ignoreeof # ignore EOF
+
+# ===== Jobs
+setopt longlistjobs # list jobs in long format
+setopt nobgnice # run bg processes at full speed
+setopt nocheckjobs # don't warn me about bg processes when exiting
+setopt nohup # and don't kill them, either
 
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # use nice colors for completion lists
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-
-bindkey -M menuselect '^o' accept-and-infer-next-history # should this be in keybindings?
 
 zstyle ':completion:*' insert-tab pending # pasting with tabs doesn't perform completion
 
@@ -167,50 +209,6 @@ zstyle '*' single-ignored show
 zstyle -e ':completion:*:*:vim#:*:*' ignored-patterns \
   'texfiles=$(echo ${PREFIX}*.tex); [[ -n "$texfiles" ]] &&
   reply=(*.(aux|dvi|log|ps|pdf|bbl|toc|lot|lof|latexmain)) || reply=()'
-
-expand-or-complete-with-dots() {
-  echo -n "\e[31m......\e[0m"
-  zle expand-or-complete
-  zle redisplay
-}
-
-zle -N expand-or-complete-with-dots
-bindkey "^I" expand-or-complete-with-dots
-
-zle -C complete-menu menu-select _generic
-_complete_menu() {
-  setopt localoptions alwayslastprompt
-  zle complete-menu
-}
-zle -N _complete_menu
-bindkey '^F' _complete_menu
-bindkey -M menuselect '^F' accept-and-infer-next-history
-bindkey -M menuselect '/'  accept-and-infer-next-history
-bindkey -M menuselect '^?' undo
-bindkey -M menuselect ' ' accept-and-hold
-bindkey -M menuselect '*' history-incremental-search-forward
-
-function _recover_line_or_else() {
-  if [[ -z $BUFFER && $CONTEXT = start && $zsh_eval_context = shfunc
-        && -n $ZLE_LINE_ABORTED
-        && $ZLE_LINE_ABORTED != $history[$((HISTCMD-1))] ]]; then
-    LBUFFER+=$ZLE_LINE_ABORTED
-    unset ZLE_LINE_ABORTED
-  else
-    zle .$WIDGET
-  fi
-}
-zle -N up-line-or-history _recover_line_or_else
-function _zle_line_finish() {
-  ZLE_LINE_ABORTED=$BUFFER
-}
-zle -N zle-line-finish _zle_line_finish
-
-setopt nobeep
-setopt nolistbeep
-setopt auto_cd
-setopt multios
-setopt cdablevars
 
 function curent_user() {
   echo "%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%}"

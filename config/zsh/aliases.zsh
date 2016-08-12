@@ -1,12 +1,5 @@
-# Changing/making/removing directory
-
-setopt autopushd  # automatically append dirs to the push/pop list
-setopt pushdignoredups # and don't duplicate them
-setopt pushdsilent # pushd will not print the directory stack after each invocation
-setopt pushdminus # - and + are reversed after cd
-setopt pushdtohome # pushd with no parameters acts like 'pushd $HOME'
-setopt autocd # change to dirs without cd
-setopt cdablevars # avoid the need for an explicit $
+alias _='sudo'
+alias please='sudo'
 
 alias -g ...='../..'
 alias -g ....='../../..'
@@ -40,3 +33,15 @@ fi
 # Push and pop directories on directory stack
 alias pu='pushd'
 alias po='popd'
+
+alias ebuild='nocorrect ebuild'
+alias gist='nocorrect gist'
+alias heroku='nocorrect heroku'
+alias hpodder='nocorrect hpodder'
+alias man='nocorrect man'
+alias mkdir='nocorrect mkdir'
+alias mv='nocorrect mv'
+alias mysql='nocorrect mysql'
+alias sudo='nocorrect sudo'
+alias npm='nocorrect npm'
+alias brew='nocorrect brew'
