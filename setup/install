@@ -2,15 +2,12 @@
 #
 # install standard packages.
 
-cd "$(dirname "$0")/.."
-DOTFILES_ROOT=$(pwd)
-
 set -e
-
-# make zsh the default shell
-sudo bash -c 'echo "/usr/local/bin/zsh" >> /etc/shells'
-chsh -s /usr/local/bin/zsh
 
 # install homebrew and standard packages
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew install zsh coreutils hub cask
+
+# make zsh the default shell
+sudo bash -c 'echo "/usr/local/bin/zsh" >> /etc/shells'
+chsh -s /usr/local/bin/zsh
