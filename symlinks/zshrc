@@ -21,7 +21,8 @@ if [[ -a $HOME/.env-local ]]; then source $HOME/.env-local; fi
 export PATH=`echo ":$PATH:" | sed -e "s:\:/usr/local/bin\::\::g" -e "s/^://" -e "s/:$//"`
 export PATH="/usr/local/bin:/usr/local/sbin:$DOTFILES/bin:$PATH"
 export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-if [[ -a $ANDROID_HOME ]]; then export PATH="$ANDROID_PLATFORM_TOOLS:$ANDROID_BUILD_TOOLS:$ANDROID_TOOLS:$ANDROID_HOME:$PATH"; fi
+export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
+export MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
 export NODE_PATH="$NODE_PATH:/bin/sh"
 
 # set prompt colours
