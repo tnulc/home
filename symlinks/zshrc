@@ -23,7 +23,6 @@ export PATH="/usr/local/bin:/usr/local/sbin:$DOTFILES/bin:$PATH"
 export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
 export MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
-export NODE_PATH="$NODE_PATH:/bin/sh"
 
 # set prompt colours
 autoload -U colors && colors
