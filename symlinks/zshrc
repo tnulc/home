@@ -35,7 +35,7 @@ autoload -U $DOTFILES/functions/*(:t)
 autoload -U $DOTFILES/completions/*(:t)
 
 # initialize autocomplete here, otherwise functions won't be loaded
-autoload -Uz compinit
+autoload -Uz compinit && compinit -i
 compinit -C -d $ZSH_VARDIR/comp-$HOST
 zmodload -i zsh/complist
 zmodload -a zsh/stat stat
