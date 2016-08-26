@@ -83,6 +83,7 @@
       "language-toml"
       "autoflow"
       "dev-live-reload"
+      "vim-mode"
     ]
     ignoredNames: [
       ".bundle"
