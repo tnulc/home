@@ -1,7 +1,6 @@
 if (( $+commands[hub] ))
 then
-  hub_path=$(which hub)
-  alias git=$hub_path
+  alias git=$(which hub)
 fi
 
 alias gl='git pull --prune'
