@@ -1,6 +1,3 @@
-alias _='sudo'
-alias please='sudo'
-
 alias -g ...='../..'
 alias -g ....='../../..'
 alias -g .....='../../../..'
@@ -17,10 +14,11 @@ alias 8='cd -8'
 alias 9='cd -9'
 
 alias md='mkdir -p'
-alias rd=rmdir
+alias rd='rmdir'
 alias d='dirs -v | head -10'
+alias pu='pushd'
+alias po='popd'
 
-# List directory contents
 if $(gls &>/dev/null)
 then
   alias ls="gls -AF --color"
@@ -29,10 +27,6 @@ then
   alias la="gls -A --color"
   alias lsd="gls -l --color | grep '^d'"
 fi
-
-# Push and pop directories on directory stack
-alias pu='pushd'
-alias po='popd'
 
 alias man='nocorrect man'
 alias mkdir='nocorrect mkdir'
