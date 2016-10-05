@@ -22,7 +22,7 @@ export PATH=`echo ":$PATH:" | sed -e "s:\:/usr/local/bin\::\::g" -e "s/^://" -e 
 export PATH="/usr/local/bin:/usr/local/sbin:$DOTFILES/bin:$PATH"
 export PATH="libexec/gnubin:$PATH"
 export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
-export MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
+export MANPATH="libexec/gnuman:$MANPATH"
 
 # set prompt colours
 autoload -U colors && colors
