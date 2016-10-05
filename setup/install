@@ -6,7 +6,7 @@ set -e
 
 # install homebrew and standard packages
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew install zsh coreutils hub cask
+brew install zsh coreutils hub
 
 # make zsh the default shell
 sudo bash -c 'echo "/usr/local/bin/zsh" >> /etc/shells'
