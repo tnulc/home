@@ -49,16 +49,8 @@
     xtemplate: {}
   "atom-material-ui":
     colors:
-      abaseColor:
-        red: 255
-        green: 213
-        blue: 79
-        alpha: 1
-      accentColor:
-        red: 162
-        green: 136
-        blue: 50
-        alpha: 1
+      abaseColor: "#ffd54f"
+      accentColor: "#a28832"
       predefinedColor: "Amber"
     fonts: {}
     tabs:
