@@ -76,6 +76,15 @@
       "autoflow"
       "dev-live-reload"
       "vim-mode"
+      "bookmarks"
+      "deprecation-cop"
+      "incompatible-packages"
+      "language-less"
+      "language-perl"
+      "language-php"
+      "package-generator"
+      "styleguide"
+      "timecop"
     ]
     ignoredNames: [
       ".bundle"
