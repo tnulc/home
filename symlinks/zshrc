@@ -11,18 +11,18 @@ WORDCHARS=$WORDCHARS:s:/:
 # shortcut to this dotfiles path is $DOTFILES
 export DOTFILES=$HOME/.dotfiles
 
-# use .env for environment variables
-if [[ -a $HOME/.env ]]; then source $HOME/.env; fi
-
-# use .env-local for environment variables you dont want in git
-if [[ -a $HOME/.env-local ]]; then source $HOME/.env-local; fi
-
 # setup path
 export PATH=`echo ":$PATH:" | sed -e "s:\:/usr/local/bin\::\::g" -e "s/^://" -e "s/:$//"`
 export PATH="/usr/local/bin:/usr/local/sbin:$DOTFILES/bin:$PATH"
 export PATH="libexec/gnubin:$PATH"
 export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
 export MANPATH="libexec/gnuman:$MANPATH"
+
+# use .env for environment variables
+if [[ -a $HOME/.env ]]; then source $HOME/.env; fi
+
+# use .env-local for environment variables you dont want in git
+if [[ -a $HOME/.env-local ]]; then source $HOME/.env-local; fi
 
 # set prompt colours
 autoload -U colors && colors
