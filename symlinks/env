@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# make terminal support 256 colours
+if [[ $TERM == xterm ]]; then
+    TERM=xterm-256color
+fi
+
 # store for various dumped files
 export VARDIR=$HOME/.var
 export ZSH_VARDIR=$VARDIR/zsh
@@ -27,4 +32,11 @@ if [ -S "${GPG_AGENT_INFO%%:*}" ]; then
   export GPG_AGENT_INFO
 else
   eval $(gpg-agent --daemon --write-env-file ~/.gpg-agent-info)
+fi
+
+#tmux
+tmux attach &> /dev/null
+
+if [[ ! $TERM =~ screen ]]; then
+    exec tmux
 fi
