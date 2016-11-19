@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # store for various dumped files
 export VARDIR=$HOME/.var
 export ZSH_VARDIR=$VARDIR/zsh
