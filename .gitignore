@@ -2,10 +2,3 @@ symlinks/gitconfig
 symlinks/atom/blob-store
 symlinks/atom/recovery
 symlinks/env-local
-
-share
-n
-lib
-include
-bin/npm
-bin/node
