@@ -1,4 +1,5 @@
 #!/bin/sh
+
 STATUS=$(defaults read com.apple.finder AppleShowAllFiles)
 
 case "$STATUS" in

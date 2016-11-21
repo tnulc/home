@@ -1,4 +1,5 @@
 #!/bin/sh
+
 # Usage: colordump
 # Dump 256 ansi colors to the terminal.
 
