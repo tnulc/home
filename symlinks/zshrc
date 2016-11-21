@@ -60,7 +60,7 @@ function current_dir() {
 function git_prompt_info() {
   ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
   ref=$(command git rev-parse --short HEAD 2> /dev/null) || return 0
-  echo "%{$fg_bold[blue]%}(%{$fg_no_bold[yellow]%}%B${ref#refs/heads/}$(parse_git_dirty)$(parse_git_staged)$(parse_git_untracked)%b%{$fg_bold[blue]%})%{$reset_color%} "
+  echo "%{$fg_bold[blue]%}(%{$fg_no_bold[yellow]%}%B${ref#refs/heads/}$(parse_git_dirty)$(parse_git_staged)$(parse_git_untracked)%b%{$fg_bold[blue]%})%{$reset_color%}$(parse_git_rev_list) "
 }
 
 function parse_git_dirty() {
@@ -76,6 +76,12 @@ function parse_git_staged() {
 function parse_git_untracked() {
   local LS=$(command git ls-files --others --exclude-standard 2> /dev/null | tail -n1)
   if [[ -n $LS ]]; then echo "%{$fg_bold[red]%}+%{$reset_color%}"; fi
+}
+
+function parse_git_rev_list() {
+  LEFT_AHEAD=$(command git rev-list --count origin/master..@ 2> /dev/null)
+  RIGHT_AHEAD=$(command git rev-list --count @..origin/master 2> /dev/null)
+  if [[ $LEFT_AHEAD > 0 || $RIGHT_AHEAD > 0 ]]; then echo "[%{$fg_bold[red]%}${RIGHT_AHEAD}%{$reset_color%}…%{$fg_bold[green]%}${LEFT_AHEAD}%{$reset_color%}]"; fi
 }
 
 function set_prompt() {
