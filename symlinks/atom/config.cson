@@ -105,6 +105,9 @@
     showIndentGuide: true
   "file-watcher":
     promptWhenFileHasChangedOnDisk: false
+  "language-babel":
+    allowLocalOverride: true
+    autoIndentJSX: true
   linter:
     lintOnFly: false
     statusIconPosition: "Right"
