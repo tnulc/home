@@ -16,10 +16,10 @@ export DOTFILES=$HOME/.dotfiles
 # setup path
 export PATH="$HOME/.local/bin:$DOTFILES/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 
-# use .env for environment variables
+# environment variables
 if [[ -a $HOME/.env ]]; then source $HOME/.env; fi
 
-# use .env-local for environment variables you dont want in git
+# environment variables excluded from git
 if [[ -a $HOME/.env-local ]]; then source $HOME/.env-local; fi
 
 # set prompt colours
@@ -60,16 +60,22 @@ function current_dir() {
 function git_prompt_info() {
   ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
   ref=$(command git rev-parse --short HEAD 2> /dev/null) || return 0
-  echo "%{$fg_bold[blue]%}(%{$fg_no_bold[yellow]%}%B${ref#refs/heads/}$(parse_git_dirty)%b%{$fg_bold[blue]%})%{$reset_color%} "
+  echo "%{$fg_bold[blue]%}(%{$fg_no_bold[yellow]%}%B${ref#refs/heads/}$(parse_git_dirty)$(parse_git_staged)$(parse_git_untracked)%b%{$fg_bold[blue]%})%{$reset_color%} "
 }
 
 function parse_git_dirty() {
-  local STATUS=''
-  local FLAGS
-  FLAGS=('--porcelain')
-  FLAGS+='--ignore-submodules=dirty'
-  STATUS=$(command git status ${FLAGS} 2> /dev/null | tail -n1)
-  if [[ -n $STATUS ]]; then echo "%{$fg_bold[red]%}*%{$reset_color%}"; fi
+  local STATUS=$(command git diff --name-only --word-diff=porcelain 2> /dev/null | tail -n1)
+  if [[ -n $STATUS ]]; then echo "%{$fg_bold[red]%}·%{$reset_color%}"; fi
+}
+
+function parse_git_staged() {
+  local DIFF=$(command git diff --name-only --staged --word-diff=porcelain 2> /dev/null | tail -n1)
+  if [[ -n $DIFF ]]; then echo "%{$fg_bold[green]%}·%{$reset_color%}"; fi
+}
+
+function parse_git_untracked() {
+  local LS=$(command git ls-files --others --exclude-standard 2> /dev/null | tail -n1)
+  if [[ -n $LS ]]; then echo "%{$fg_bold[red]%}+%{$reset_color%}"; fi
 }
 
 function set_prompt() {
