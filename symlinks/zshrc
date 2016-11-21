@@ -81,7 +81,11 @@ function parse_git_untracked() {
 function parse_git_rev_list() {
   LEFT_AHEAD=$(command git rev-list --count origin/master..@ 2> /dev/null)
   RIGHT_AHEAD=$(command git rev-list --count @..origin/master 2> /dev/null)
-  if [[ $LEFT_AHEAD > 0 || $RIGHT_AHEAD > 0 ]]; then echo "[%{$fg_bold[red]%}${RIGHT_AHEAD}%{$reset_color%}…%{$fg_bold[green]%}${LEFT_AHEAD}%{$reset_color%}]"; fi
+  if [[ $LEFT_AHEAD > 0 || $RIGHT_AHEAD > 0 ]]; then echo "[$(colourise_number $RIGHT_AHEAD red)…$(colourise_number $LEFT_AHEAD green)]"; fi
+}
+
+function colourise_number() {
+  if [[ $1 == 0 ]]; then echo %{$fg_no_bold[white]%}$1%{$reset_color%}; else echo %{$fg_bold[$2]%}$1%{$reset_color%}; fi
 }
 
 function set_prompt() {
