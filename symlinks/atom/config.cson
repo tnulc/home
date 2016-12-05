@@ -51,6 +51,8 @@
     colors:
       abaseColor: "#ffd54f"
       accentColor: "#a28832"
+      genAccent: true
+      paintCursor: true
       predefinedColor: "Amber"
     fonts: {}
     tabs:
@@ -59,7 +61,6 @@
       blendTabs: true
       compactList: true
     ui:
-      animations: false
       panelContrast: true
       panelShadows: true
   autosave:
