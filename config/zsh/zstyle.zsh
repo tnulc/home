@@ -1,6 +1,7 @@
 # use caching
-zstyle ':completion::complete:*' use-cache 1
-zstyle ':completion::complete:*' cache-path $ZSH_VARDIR
+zstyle ':completion::complete:*' use-cache on
+zstyle ':completion::complete:*' cache-path $ZSH_VARDIR/comp-$HOST
+zstyle ':completion::complete:*' special-dirs true
 
 # use ls-colors for path completions
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
@@ -8,15 +9,6 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
 zstyle ':completion:*' insert-tab pending # pasting with tabs doesn't perform completion
-
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path $ZSH_VARDIR/cache
-zstyle ':completion:*' special-dirs true
-
-# man zshcontrib
-zstyle ':vcs_info:*' actionformats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
-zstyle ':vcs_info:*' formats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f '
-zstyle ':vcs_info:*' enable git
 
 # allow one error for every three characters typed in approximate completer
 zstyle -e ':completion:*:approximate:*' max-errors 'reply=( $(( ($#PREFIX+$#SUFFIX)/3 )) numeric )'
@@ -64,4 +56,10 @@ zstyle ':completion:*:*:*:users' ignored-patterns \
 
 # ignore completion functions (until the _ignored completer)
 zstyle ':completion:*:functions' ignored-patterns '_*'
+
+# man zshcontrib
+zstyle ':vcs_info:*' actionformats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
+zstyle ':vcs_info:*' formats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f '
+zstyle ':vcs_info:*' enable git
+
 zstyle '*' single-ignored show

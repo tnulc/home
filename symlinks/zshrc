@@ -39,6 +39,9 @@ zmodload -a zsh/stat stat
 zmodload -a zsh/zpty zpty
 zmodload -ap zsh/mapfile mapfile
 
+# load prompts
+autoload -U promptinit && promptinit
+
 # load in config files
 typeset -U config_files
 config_files=($DOTFILES/config/**/*.zsh)
