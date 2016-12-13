@@ -1,4 +1,6 @@
 "*":
+  "advanced-open-file":
+    createDirectories: true
   "atom-beautify":
     _analyticsUserId: "76311505-940d-45f7-9bed-ab533bac8ef9"
     apex: {}
