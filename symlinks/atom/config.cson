@@ -126,6 +126,7 @@
   "tool-bar":
     iconSize: "12px"
     position: "Right"
+    visible: false
   "tree-view":
     showOnRightSide: true
   welcome:
