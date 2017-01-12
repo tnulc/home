@@ -51,14 +51,14 @@
     xtemplate: {}
   "atom-material-ui":
     colors:
-      abaseColor: "#ffd54f"
-      accentColor: "#a28832"
+      abaseColor: "#607d8b"
       genAccent: true
       paintCursor: true
-      predefinedColor: "Amber"
+      predefinedColor: "Blue Grey"
     fonts: {}
     tabs:
       compactTabs: true
+      tintedTabBar: true
     treeView:
       blendTabs: true
       compactList: true
