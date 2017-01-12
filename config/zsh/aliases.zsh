@@ -33,3 +33,5 @@ alias mkdir='nocorrect mkdir'
 alias mv='nocorrect mv'
 alias sudo='nocorrect sudo'
 alias brew='nocorrect brew'
+
+alias vi='vim'
