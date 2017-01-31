@@ -88,6 +88,7 @@
       "package-generator"
       "styleguide"
       "timecop"
+      "tree-view"
     ]
     ignoredNames: [
       ".bundle"
@@ -119,6 +120,8 @@
     disableWhenNoEslintrcFileInPath: true
     lintOnEdit: false
   "linter-scss-lint": {}
+  "markdown-preview":
+    useGitHubStyle: true
   "merge-conflicts": {}
   "mocha-test-runner":
     env: "test"
