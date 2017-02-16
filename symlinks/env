@@ -24,12 +24,3 @@ export ARCHFLAGS="-arch x86_64"
 
 # homebrew cask
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-
-# gpg
-[ -f ~/.gpg-agent-info ] && source ~/.gpg-agent-info
-if [ -S "${GPG_AGENT_INFO%%:*}" ]; then
-  export GPG_TTY=$(tty)
-  export GPG_AGENT_INFO
-else
-  eval $(gpg-agent --daemon --write-env-file ~/.gpg-agent-info)
-fi
