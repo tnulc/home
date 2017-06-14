@@ -1,0 +1,51 @@
+img() {
+  function print_image() {
+    if [[ $TERM == screen* ]] ; then
+      printf "\033Ptmux;\033\033]"
+    else
+      printf "\033]"
+    fi
+    printf '1337;File='
+    if [[ -n "$1" ]]; then
+      printf 'name='`echo -n "$1" | base64`";"
+    fi
+    if $(base64 --version 2>&1 | grep GNU > /dev/null)
+    then
+      BASE64ARG=-d
+    else
+      BASE64ARG=-D
+    fi
+    echo -n "$3" | base64 $BASE64ARG | wc -c | awk '{printf "size=%d",$1}'
+    printf ";inline=$2"
+    printf ":"
+    echo -n "$3"
+    if [[ $TERM == screen* ]] ; then
+      printf "\a\033\\"
+    else
+      printf "\a"
+    fi
+    printf '\n'
+  }
+
+  function error() {
+    echo "ERROR: $*" 1>&2
+  }
+
+  ## Main
+  if [ -t 0 ]; then
+    has_stdin=f
+  else
+    has_stdin=t
+  fi
+
+  while [ $# -gt 0 ]; do
+      if [ -r "$1" ] ; then
+        print_image "$1" 1 "$(base64 < "$1")"
+      fi
+    shift
+  done
+
+  if [ $has_stdin = t ]; then
+    print_image "" 1 "$(cat | base64)"
+  fi
+}
