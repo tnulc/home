@@ -1,4 +1,6 @@
-function _rails_command() {
+#!/bin/bash
+
+_rails_command() {
   if [ -e "bin/rails" ]; then
     bin/rails $@
   elif [ -e "script/rails" ]; then
