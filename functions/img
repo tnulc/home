@@ -1,7 +1,7 @@
 #!/bin/bash
 
 img() {
-  function print_image() {
+  print_image() {
     if [[ $TERM == screen* ]] ; then
       printf "\033Ptmux;\033\033]"
     else
