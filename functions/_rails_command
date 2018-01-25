@@ -1,7 +1,9 @@
 #!/bin/bash
 
-_rails_command() {
-  if [ -e "bin/rails" ]; then
+function _rails_command () {
+  if [ -e "bin/stubs/rails" ]; then
+    bin/stubs/rails $@
+  elif [ -e "bin/rails" ]; then
     bin/rails $@
   elif [ -e "script/rails" ]; then
     ruby script/rails $@

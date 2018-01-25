@@ -1,6 +1,7 @@
 # https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/rails/rails.plugin.zsh
 
 alias rails="_rails_command"
+alias rake="_rake_command"
 
 alias devlog='tail -f log/development.log'
 alias prodlog='tail -f log/production.log'

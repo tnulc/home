@@ -29,19 +29,15 @@ if [[ x$WINDOW != x ]]; then SCREEN_NO="%B$WINDOW%b "; else SCREEN_NO=""; fi
 
 # load in our custom functions/completions
 fpath=($DOTFILES/functions $DOTFILES/completions $fpath)
-autoload -U $DOTFILES/functions/*(:t)
-autoload -U $DOTFILES/completions/*(:t)
 
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -Uz compinit && compinit -i -C -d $ZSH_VARDIR/comp-$HOST
+autoload -U $DOTFILES/functions/*(:t)
+autoload -U $DOTFILES/completions/*(:t)
 zmodload -i zsh/complist
 zmodload -a zsh/stat stat
 zmodload -a zsh/zpty zpty
 zmodload -ap zsh/mapfile mapfile
-
-if [ $commands[kubectl] ]; then
-  source <(kubectl completion zsh)
-fi
 
 # load prompts
 autoload -U promptinit && promptinit
