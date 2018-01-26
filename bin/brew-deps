@@ -1,0 +1,3 @@
+#!/bin/sh
+
+brew list | while read cask; do printf "\e[1;34m$cask ->\e[0m"; brew deps $cask | awk '{printf(" %s ", $0)}'; echo ""; done

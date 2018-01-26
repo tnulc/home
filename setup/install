@@ -6,7 +6,7 @@ set -e
 
 # install homebrew and standard packages
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew install chruby coreutils hub mysql n ruby-install yarn --without-node zsh
+brew install chruby coreutils hub mysql n python ruby-install yarn --without-node zsh
 brew cask install alfred atom docker dotnet-sdk google-chrome iterm2 virtualbox
 
 # install latest version of node
