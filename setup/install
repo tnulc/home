@@ -6,7 +6,14 @@ set -e
 
 # install homebrew and standard packages
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew install zsh coreutils hub chruby ruby-install mysql n yarn --without-node
+brew install chruby coreutils hub mysql n ruby-install yarn --without-node zsh
+brew cask install alfred atom docker dotnet-sdk google-chrome iterm2 virtualbox
+
+# install latest version of node
+n latest
+
+# install latest version of ruby
+ruby-install ruby
 
 # make zsh the default shell
 sudo bash -c 'echo "/usr/local/bin/zsh" >> /etc/shells'
