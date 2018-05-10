@@ -14,7 +14,7 @@ WORDCHARS=$WORDCHARS:s:/:
 export DOTFILES=$HOME/.dotfiles
 
 # setup path
-export PATH="$HOME/.local/bin:$DOTFILES/bin:/usr/local/bin:/usr/local/sbin:$PATH"
+export PATH="$HOME/.local/bin:$DOTFILES/bin:$PATH"
 
 # environment variables
 if [[ -a $HOME/.env ]]; then source $HOME/.env; fi

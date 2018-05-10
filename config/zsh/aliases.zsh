@@ -19,13 +19,18 @@ alias d='dirs -v | head -10'
 alias pu='pushd'
 alias po='popd'
 
-if $(gls &>/dev/null)
+if $(which gls &>/dev/null)
 then
   alias ls="gls -AF --color"
   alias l="gls -lAh --color"
   alias ll="gls -l --color"
   alias la="gls -A --color"
   alias lsd="gls -l --color | grep '^d'"
+fi
+
+if $(which gsort &>/dev/null)
+then
+  alias sort="gsort"
 fi
 
 alias man='nocorrect man'
