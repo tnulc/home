@@ -82,8 +82,8 @@ function parse_git_untracked() {
 }
 
 function parse_git_rev_list() {
-  LEFT_AHEAD=$(command git rev-list --count origin/master..@ 2> /dev/null)
-  RIGHT_AHEAD=$(command git rev-list --count @..origin/master 2> /dev/null)
+  local LEFT_AHEAD=$(command git rev-list --count origin/master..@ 2> /dev/null)
+  local RIGHT_AHEAD=$(command git rev-list --count @..origin/master 2> /dev/null)
   if [[ $LEFT_AHEAD > 0 || $RIGHT_AHEAD > 0 ]]; then echo "[$(show_number $RIGHT_AHEAD red)…$(show_number $LEFT_AHEAD green)]"; fi
 }
 
@@ -91,8 +91,13 @@ function show_number() {
   if [[ $1 != 0 ]]; then echo %{$fg_bold[$2]%}$1%{$reset_color%}; fi
 }
 
+function virtualenv_prompt_info() {
+  local VENV=$(command echo $VIRTUAL_ENV 2> /dev/null)
+  if [[ $VENV ]]; then echo "%{$fg_bold[yellow]%}[`basename \"$VIRTUAL_ENV\"`]%{$reset_color%} "; fi
+}
+
 function set_prompt() {
-  PROMPT="$(curent_user)@$(hostname):$(current_dir) $(git_prompt_info)%(!.#.$) "
+  PROMPT="$(curent_user)@$(hostname):$(current_dir) $(git_prompt_info)$(virtualenv_prompt_info)%(!.#.$) "
   RPROMPT='[%*]'
 }
 

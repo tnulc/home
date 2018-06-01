@@ -24,3 +24,15 @@ export ARCHFLAGS="-arch x86_64"
 
 # homebrew cask
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+# node
+export N_PREFIX="$HOME/.local"
+
+# python
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$PROJECTS/python
+export VIRTUALENV_PYTHON=/usr/local/bin/python3
+export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+export PIP_VIRTUALENV_BASE=$WORKON_HOME
+export PIP_RESPECT_VIRTUALENV=true
+source /usr/local/bin/virtualenvwrapper.sh

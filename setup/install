@@ -6,7 +6,7 @@ set -e
 
 # install homebrew and standard packages
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew install zsh coreutils git hub n yarn --without-node
+brew install zsh coreutils git hub python@2 python n yarn --without-node
 brew cask install caffeine alfred sizeup atom iterm2
 
 # install latest version of node
