@@ -1,0 +1,9 @@
+#!/bin/bash
+
+gpip() {
+   PIP_REQUIRE_VIRTUALENV=false pip "$@"
+}
+
+gpip3() {
+   PIP_REQUIRE_VIRTUALENV=false pip3 "$@"
+}
