@@ -6,11 +6,12 @@ set -e
 
 # install homebrew and standard packages
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew install zsh coreutils git hub python@2 python n yarn --without-node
+brew install zsh coreutils git hub python@2 python n
+brew install yarn --without-node
 brew cask install caffeine alfred sizeup atom iterm2
 
-# install latest version of node
-n latest
+# install stable version of node
+n lts
 
 # make zsh the default shell
 sudo bash -c 'echo "/usr/local/bin/zsh" >> /etc/shells'
