@@ -17,7 +17,7 @@ export DOTFILES=$HOME/.dotfiles
 export PATH="$HOME/.local/bin:$DOTFILES/bin:$PATH"
 
 # environment variables
-for env in ~/.env; do source $env; done;
+for env in ~/.env*; do source $env; done;
 
 # set prompt colours
 autoload -U colors && colors
