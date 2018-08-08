@@ -109,7 +109,7 @@ install_dotfiles () {
 
   for src in $(find -L "$DOTFILES_ROOT/symlinks" -type f)
   do
-    dst="$HOME/.$(basename "${src}")"
+    dst="$HOME/$(basename "${src}")"
     echo $dst
     link_file "$src" "$dst"
   done

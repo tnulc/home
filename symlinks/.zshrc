@@ -17,10 +17,7 @@ export DOTFILES=$HOME/.dotfiles
 export PATH="$HOME/.local/bin:$DOTFILES/bin:$PATH"
 
 # environment variables
-if [[ -a $HOME/.env ]]; then source $HOME/.env; fi
-
-# environment variables excluded from git
-if [[ -a $HOME/.env-local ]]; then source $HOME/.env-local; fi
+for env in ~/.env; do source $env; done;
 
 # set prompt colours
 autoload -U colors && colors
