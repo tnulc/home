@@ -1,3 +1,3 @@
 config/local
 symlinks/gitconfig
-symlinks/.env-*
+symlinks/.env-local
