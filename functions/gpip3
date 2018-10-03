@@ -1,6 +1,0 @@
-#!/bin/bash
-
-gpip3() {
-   PIP_REQUIRE_VIRTUALENV=false;
-   pip3 "$@";
-}

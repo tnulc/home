@@ -1,6 +1,0 @@
-#!/bin/bash
-
-gpip() {
-   PIP_REQUIRE_VIRTUALENV=false;
-   pip "$@";
-}
