@@ -75,11 +75,11 @@ function display_time() {
   local S=$((T/1000%60))
   local MS=$((T%1000))
 
-  (( $D > 0 )) && printf "%dd " $D
-  (( $H > 0 )) && printf "%dh " $H
-  (( $M > 0 )) && printf "%dm " $M
-  (( $S > 0 )) && printf "%ds" $S
-  (( $MS > 0 )) && printf "%dms" $MS
+  (( $D > 0 )) && printf "%dd" $D
+  (( $H > 0 )) && printf " %dh" $H
+  (( $M > 0 )) && printf " %dm" $M
+  (( $T >= 10000 && $S > 0 )) && printf " %ds" $S
+  (( $T < 10000 )) && printf " %dms" $T
 }
 
 function start_timer() {
@@ -88,21 +88,22 @@ function start_timer() {
 
 function timer_info() {
   if [ $timer ]; then
-    now=$(($(gdate +%s%N)/1000000))
-    elapsed=$(($now-$timer))
-    echo "$(display_time $elapsed)"
+    local now=$(($(gdate +%s%N)/1000000))
+    local elapsed=$(($now-$timer))
+    echo $(display_time $elapsed)
     unset timer
   fi
 }
 
 function exit_status() {
-  if [[ $? == 0 ]]; then echo " $FG[010]✔$FX[reset]"; fi
-  if [[ $? != 0 ]]; then echo " $FG[009]✗ ($?)$FX[reset]"; fi
+  [ $RETVAL -eq 0 ] && echo " $FG[010]✔$FX[reset]"
+  [ $RETVAL -ne 0 ] && echo " $FG[009]✘($RETVAL)$FX[reset]";
 }
 
 function set_prompt() {
-  PROMPT="$(curent_user)@$(hostname):$(current_dir) $(git_prompt_info)$(cursor) "
-  RPROMPT="$(node_prompt_info)$(virtualenv_prompt_info)$(timer_info)$(exit_status)"
+  local RETVAL=$?
+  PS1="$(curent_user)@$(hostname):$(current_dir) $(git_prompt_info)$(cursor) "
+  RPS1="$(node_prompt_info)$(virtualenv_prompt_info)$(timer_info)$(exit_status)"
 }
 
 preexec_functions+=(start_timer)
