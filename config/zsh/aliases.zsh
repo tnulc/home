@@ -40,3 +40,5 @@ alias sudo='nocorrect sudo'
 alias brew='nocorrect brew'
 
 alias vi='vim'
+
+alias ssh='TERM=xterm-256color ssh'

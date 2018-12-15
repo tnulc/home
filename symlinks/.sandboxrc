@@ -1,0 +1,21 @@
+#!/bin/bash
+
+export NVM_DIR=$HOME/.nvm
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+
+sandbox_init_nvm() {
+    export SANDBOX_INIT_NVM=1;
+    source $(brew --prefix nvm)/nvm.sh
+}
+
+sandbox_hook nvm node
+sandbox_hook nvm npm
+sandbox_hook nvm npx
+
+sandbox_init_pyenv() {
+    export SANDBOX_INIT_PYENV=1;
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+}
+
+sandbox_hook pyenv python
