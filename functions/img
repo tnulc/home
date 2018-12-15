@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 img() {
   print_image() {

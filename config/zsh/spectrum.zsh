@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # https://github.com/sykora/etc/blob/master/zsh/functions/spectrum/
 

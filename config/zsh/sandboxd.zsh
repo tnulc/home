@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # https://github.com/benvan/sandboxd
 
@@ -8,7 +8,7 @@
 sandbox_hooks=()
 
 # deletes all hooks associated with cmd
-function sandbox_delete_hooks(){
+function sandbox_delete_hooks() {
   local cmd=$1
   for i in "${sandbox_hooks[@]}";
   do
@@ -22,7 +22,7 @@ function sandbox_delete_hooks(){
 
 
 # prepares environment and removes hooks
-function sandbox(){
+function sandbox() {
   local cmd=$1
 
    if [[ "$(type $cmd | grep -o function)" = "function" ]]; then
@@ -35,7 +35,7 @@ function sandbox(){
   fi
 }
 
-function sandbox_hook(){
+function sandbox_hook() {
   local cmd=$1
   local hook=$2
 
@@ -49,7 +49,7 @@ function sandbox_hook(){
 source "$SANDBOXRC"
 
 # create hooks for the sandbox names themselves
-function sandbox_initialise(){
+function sandbox_initialise() {
   local funcs="$( cat $SANDBOXRC | sed 's/#.*$//g' | grep -o 'sandbox_init_[^(]\+' )"
   while read f; do
     local cmd=$(echo $f | sed s/sandbox_init_//)

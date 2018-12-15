@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # make terminal support 256 colours
 if [[ $TERM == xterm ]]; then

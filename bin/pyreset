@@ -1,0 +1,4 @@
+#!/bin/sh
+
+pyenv uninstall -f scratch
+pyenv virtualenv 3.7.0 scratch
