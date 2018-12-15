@@ -1,7 +1,3 @@
-autoload -Uz compinit
-compinit --i -C -d $ZSH_VARDIR/comp-$HOST
-_comp_options+=(globdots)
-
 zstyle ':completion::complete:*' use-cache on
 zstyle ':completion::complete:*' cache-path $ZSH_VARDIR
 
@@ -62,7 +58,6 @@ zstyle ':completion:*' list-dirs-first true
 zstyle ':completion:*' accept-exact-dirs true
 
 # Always use menu selection for `cd -`
-zstyle ':completion:*:*:cd:*' format ''
 zstyle ':completion:*:*:cd:*:directory-stack' force-list always
 zstyle ':completion:*:*:cd:*:directory-stack' menu yes select
 

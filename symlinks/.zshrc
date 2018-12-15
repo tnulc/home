@@ -29,14 +29,12 @@ autoload -U colors && colors
 if [ $UID -eq 0 ]; then NCOLOR="017"; else NCOLOR="255"; fi
 if [[ x$WINDOW != x ]]; then SCREEN_NO="%B$WINDOW%b "; else SCREEN_NO=""; fi
 
-# load in config files
-typeset -U config_files
-config_files=($DOTFILES/config/**/*.zsh)
-for file in $config_files; do source $file; done
-unset config_files
-
 # load in our custom functions/completions
 fpath=($DOTFILES/functions $DOTFILES/completions $fpath)
+
+autoload -Uz compinit
+compinit --i -C -d $ZSH_VARDIR/comp-$HOST
+_comp_options+=(globdots)
 
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U $DOTFILES/functions/*(:t)
@@ -45,3 +43,9 @@ zmodload -i zsh/complist
 zmodload -a zsh/stat stat
 zmodload -a zsh/zpty zpty
 zmodload -ap zsh/mapfile mapfile
+
+# load in config files
+typeset -U config_files
+config_files=($DOTFILES/config/**/*.zsh)
+for file in $config_files; do source $file; done
+unset config_files
