@@ -26,7 +26,6 @@ for env in ~/.env*; do source $env; done;
 
 # set prompt colours
 autoload -U colors && colors
-if [ $UID -eq 0 ]; then NCOLOR="017"; else NCOLOR="255"; fi
 if [[ x$WINDOW != x ]]; then SCREEN_NO="%B$WINDOW%b "; else SCREEN_NO=""; fi
 
 # load in our custom functions/completions

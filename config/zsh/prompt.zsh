@@ -3,6 +3,8 @@
 # load prompts
 autoload -U promptinit && promptinit
 
+if [ $UID -eq 0 ]; then NCOLOR="017"; else NCOLOR="255"; fi
+
 function curent_user() {
   echo "$FG[$NCOLOR]$FX[bold]%n$FX[reset]"
 }
@@ -75,11 +77,11 @@ function display_time() {
   local S=$((T/1000%60))
   local MS=$((T%1000))
 
-  (( $D > 0 )) && printf "%dd" $D
-  (( $H > 0 )) && printf " %dh" $H
-  (( $M > 0 )) && printf " %dm" $M
-  (( $T >= 10000 && $S > 0 )) && printf " %ds" $S
-  (( $T < 10000 )) && printf " %dms" $T
+  (( $D > 0 )) && printf "%dd " $D
+  (( $H > 0 )) && printf "%dh " $H
+  (( $M > 0 )) && printf "%dm " $M
+  (( $T >= 10000 && $S > 0 )) && printf "%ds" $S
+  (( $T < 10000 )) && printf "%dms" $T
 }
 
 function start_timer() {
@@ -90,7 +92,21 @@ function timer_info() {
   if [ $timer ]; then
     local now=$(($(gdate +%s%N)/1000000))
     local elapsed=$(($now-$timer))
-    echo $(display_time $elapsed)
+    local TIMER_BG
+    local TIMER_FG
+    local TIMER_FX
+
+    if [ $elapsed -gt 10000 ]; then
+      TIMER_BG="011"
+      TIMER_FG="000"
+      TIMER_FX="bold"
+    else 
+      TIMER_BG="000"
+      TIMER_FG="255"
+      TIMER_FX=""
+    fi
+
+    echo "$FG[$TIMER_FG]$BG[$TIMER_BG]$FX[$TIMER_FX]$(display_time $elapsed)$FX[reset]"
     unset timer
   fi
 }
