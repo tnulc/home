@@ -47,7 +47,7 @@ function parse_git_untracked() {
 function parse_git_rev_list() {
   local LEFT_AHEAD=$(command git rev-list --count @..origin/master 2> /dev/null)
   local RIGHT_AHEAD=$(command git rev-list --count origin/master..@ 2> /dev/null)
-  if [[ $LEFT_AHEAD > 0 || $RIGHT_AHEAD > 0 ]]; then echo "[$(show_number $LEFT_AHEAD 010)…$(show_number $RIGHT_AHEAD 009)]"; fi
+  if [[ $LEFT_AHEAD > 0 || $RIGHT_AHEAD > 0 ]]; then echo "[$(show_number $LEFT_AHEAD 009)…$(show_number $RIGHT_AHEAD 010)]"; fi
 }
 
 function show_number() {
