@@ -1,0 +1,13 @@
+# only use this global ignore for the home repository (allows other
+# tooling not to see it)
+[user]
+	name = Christopher Lunt
+	email = kirisu@users.noreply.github.com
+	signingkey = E6C8E3B93C8348A2
+[core]
+	excludesfile = ~/.gitignore.home
+[push]
+	default = current
+	recurseSubmodules = on-demand
+[commit]
+	gpgsign = true

@@ -1,0 +1,85 @@
+[user]
+	name = Christopher Lunt
+	email = kirisu@users.noreply.github.com
+[core]
+	preloadindex = true
+	excludesfile = ~/.gitignore.global
+	trustctime = false
+	pager = less
+	commitGraph = true
+[color]
+	ui = auto
+[diff]
+	indentHeuristic = true
+	algorithm = histogram
+	tool = vimdiff
+[log]
+	date = local
+[rerere]
+	enabled = true
+[pager]
+	color = true
+[status]
+	color = true
+	submodulesummary = true
+[push]
+	default = current
+	recurseSubmodules = on-demand
+[status]
+	submodulesummary = true
+	showUntrackedFiles = all
+[alias]
+	supdate = submodule update --init --rebase
+	supgrade = submodule update --init --remote --rebase
+	undo = reset --soft HEAD^
+	yolo = push --force
+	cane = commit --amend --no-edit
+[commit]
+	verbose = true
+[http]
+	sslVerify = true
+[branch]
+	autosetuprebase = always
+[help]
+	autocorrect = 1
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
+[remote "origin"]
+	fetch = +refs/pull/*/head:refs/remotes/origin/pull/*
+[receive]
+	fsckObjects = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[tig]
+	show-changes = true
+	tab-size = 2
+	mouse = true
+[init]
+	templatedir = ~/.git-templates
+[rebase]
+	autoStash = true
+[pull]
+	rebase = true
+[fetch]
+	prune = true
+	pruneTags = true
+	output = full
+[merge]
+	tool = vimdiff
+	conflictStyle = diff3
+[mergetool]
+	prompt = false
+
+# allow uncommitted configuration to override above (needs to be
+# second-to-last)
+[include]
+	path = .gitconfig.local
+
+# allow home-repository-specific configuration to override above (needs
+# to be last) (requires >= v2.13)
+[includeIf "gitdir:~/.home.git"]
+	path = .gitconfig.home
