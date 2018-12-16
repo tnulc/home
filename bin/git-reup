@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -e
+
+git pull --rebase $@
+
+# show diffstat of all changes if we're pulling with --rebase. not
+# sure why git-pull only does this when merging.
+echo "Diff:"
+git --no-pager diff --color --stat HEAD@{1}.. |
+sed 's/^/ /'
+
+# show an abbreviated commit log of stuff that was just merged.
+echo "Log:"
+git log --color --pretty=oneline --abbrev-commit HEAD@{1}.. |
+sed 's/^/  /'
