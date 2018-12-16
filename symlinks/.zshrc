@@ -6,8 +6,9 @@ if [[ $TERM == xterm ]]; then
 fi
 
 # pretty theme
+export BASE16_SHELL_SET_BACKGROUND=false
 BASE16_SHELL=$HOME/.config/base16-shell/
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+[[ -n "$PS1" ]] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
 # only define LC_CTYPE if undefined
 if [[ -z "$LC_CTYPE" && -z "$LC_ALL" ]]; then export LC_CTYPE=${LANG%%:*}; fi
@@ -24,20 +25,23 @@ export PATH="$HOME/.local/bin:$DOTFILES/bin:$PATH"
 # environment variables
 for env in ~/.env*; do source $env; done;
 
-# set prompt colours
-autoload -U colors && colors
-if [[ x$WINDOW != x ]]; then SCREEN_NO="%B$WINDOW%b "; else SCREEN_NO=""; fi
-
 # load in our custom functions/completions
-fpath=($DOTFILES/functions $DOTFILES/completions $fpath)
+fpath=(
+    $DOTFILES/functions
+    $DOTFILES/completions
+    $(brew --prefix)/share/zsh/zsh-completions
+    $(brew --prefix)/share/zsh/site-functions
+    $fpath
+)
 
-autoload -Uz compinit
-compinit --i -C -d $ZSH_VARDIR/comp-$HOST
-_comp_options+=(globdots)
-
-# initialize autocomplete here, otherwise functions won't be loaded
 autoload -U $DOTFILES/functions/*(:t)
 autoload -U $DOTFILES/completions/*(:t)
+autoload -Uz compinit
+
+# initialize autocomplete here, otherwise functions won't be loaded
+compinit --i -Cd $ZSH_VARDIR/comp-$HOST
+_comp_options+=(globdots)
+
 zmodload -i zsh/complist
 zmodload -a zsh/stat stat
 zmodload -a zsh/zpty zpty

@@ -3,7 +3,7 @@
 # load prompts
 autoload -U promptinit && promptinit
 
-if [ $UID -eq 0 ]; then NCOLOR="017"; else NCOLOR="255"; fi
+if [[ $UID -eq 0 ]]; then NCOLOR="017"; else NCOLOR="255"; fi
 
 function curent_user() {
   echo "$FG[$NCOLOR]$FX[bold]%n$FX[reset]"
@@ -14,7 +14,7 @@ function hostname() {
 }
 
 function current_dir() {
-  echo "$FG[004]%c$FX[reset]/"
+  echo "$FG[004]%c$FX[reset]/ "
 }
 
 function git_prompt_info() {
@@ -66,7 +66,7 @@ function node_prompt_info() {
 }
 
 function cursor() {
-  echo "%(!.#.$)"
+  echo "$FX[bold]%(!.#.$)$FX[reset] "
 }
 
 function display_time() {
@@ -89,14 +89,14 @@ function start_timer() {
 }
 
 function timer_info() {
-  if [ $timer ]; then
+  if [[ $timer ]]; then
     local now=$(($(gdate +%s%N)/1000000))
     local elapsed=$(($now-$timer))
     local TIMER_BG
     local TIMER_FG
     local TIMER_FX
 
-    if [ $elapsed -gt 10000 ]; then
+    if [[ $elapsed -gt 10000 ]]; then
       TIMER_BG="011"
       TIMER_FG="000"
       TIMER_FX="bold"
@@ -112,13 +112,13 @@ function timer_info() {
 }
 
 function exit_status() {
-  [ $RETVAL -eq 0 ] && echo " $FG[010]✔$FX[reset]"
-  [ $RETVAL -ne 0 ] && echo " $FG[009]✘($RETVAL)$FX[reset]";
+  [[ $RETVAL -eq 0 ]] && echo " $FG[010]✔$FX[reset]"
+  [[ $RETVAL -ne 0 ]] && echo " $FG[009]✘($RETVAL)$FX[reset]";
 }
 
 function set_prompt() {
   local RETVAL=$?
-  PS1="$(curent_user)@$(hostname):$(current_dir) $(git_prompt_info)$(cursor) "
+  PS1="$(curent_user)@$(hostname):$(current_dir)$(git_prompt_info)$(cursor)"
   RPS1="$(node_prompt_info)$(virtualenv_prompt_info)$(timer_info)$(exit_status)"
 }
 
