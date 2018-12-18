@@ -30,10 +30,11 @@ cdpath=(
 typeset -U fpath
 fpath=(
   $Z/functions
-  $(brew --prefix)/share/zsh-completions
   $(brew --prefix)/share/zsh/site-functions
+  $HOME/.local/share/zsh-completions/src
   $fpath
 )
+
 export FPATH
 
 autoload -Uz compaudit compinit
