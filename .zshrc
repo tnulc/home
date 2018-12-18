@@ -34,7 +34,7 @@ typeset -U fpath
 fpath=(
   $ZSH/functions
   $(brew --prefix)/share/zsh/site-functions
-  $SHARE/zsh-completions/src
+  $SHARE/zsh/zsh-completions/src
   $fpath
 )
 
@@ -79,6 +79,16 @@ export LS_COLORS
 
 
 ########################################################################
+# coreutils
+########################################################################
+
+[[ -d "/usr/local/opt/coreutils/libexec/gnubin" ]] && \
+  export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+[[ -d "/usr/local/opt/coreutils/libexec/gnuman" ]] && \
+  export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+
+
+########################################################################
 # zsh-syntax-highlighting
 ########################################################################
 
@@ -103,6 +113,14 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 ZSH_AUTOSUGGEST_STRATEGY=match_prev_cmd
 ZSH_AUTOSUGGEST_USE_ASYNC=1
+
+
+########################################################################
+# zsh-history-substring-search
+########################################################################
+
+[[ -s "$SHARE/zsh/zsh-history-substring-search/zsh-history-substring-search.zsh" ]] && \
+  source "$SHARE/zsh/zsh-history-substring-search/zsh-history-substring-search.zsh"
 
 
 ########################################################################
