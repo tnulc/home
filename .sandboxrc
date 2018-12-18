@@ -15,6 +15,7 @@ sandbox_hook nvm npx
 sandbox_init_pyenv() {
     export SANDBOX_INIT_PYENV=1
     export PYTHONDONTWRITEBYTECODE=1
+    export CFLAGS="-I$(xcrun --show-sdk-path)/usr/include"
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
 }

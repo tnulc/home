@@ -6,6 +6,7 @@
 	signingkey = E6C8E3B93C8348A2
 [core]
 	excludesfile = ~/.gitignore.home
+	sharedRepository = umask
 [push]
 	default = current
 	recurseSubmodules = on-demand
