@@ -28,7 +28,7 @@ export PAGER="less"
 export LESS="CMifSR --tabs=4"
 export LESSCHARSET="utf-8"
 export EDITOR="code"
-export PROJECTS="~/git"
+export PROJECTS="$HOME/git"
 export MLR_CSV_DEFAULT_RS="lf"
 
 skip_global_compinit=1
