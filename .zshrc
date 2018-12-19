@@ -84,6 +84,7 @@ export LS_COLORS
 
 [[ -d "/usr/local/opt/coreutils/libexec/gnubin" ]] && \
   export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+
 [[ -d "/usr/local/opt/coreutils/libexec/gnuman" ]] && \
   export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
@@ -122,21 +123,17 @@ ZSH_AUTOSUGGEST_USE_ASYNC=1
 [[ -s "$SHARE/zsh/zsh-history-substring-search/zsh-history-substring-search.zsh" ]] && \
   source "$SHARE/zsh/zsh-history-substring-search/zsh-history-substring-search.zsh"
 
-if [[ "${terminfo[kpp]}" != "" ]]; then
-  bindkey "${terminfo[kpp]}" history-substring-search-up       # [PageUp] - Up a line of history
-fi
+[[ "${terminfo[kpp]}" != "" ]] && \
+  bindkey "${terminfo[kpp]}" history-substring-search-up        # [PageUp]
 
-if [[ "${terminfo[knp]}" != "" ]]; then
-  bindkey "${terminfo[knp]}" history-substring-search-down     # [PageDown] - Down a line of history
-fi
+[[ "${terminfo[knp]}" != "" ]] && \
+  bindkey "${terminfo[knp]}" history-substring-search-down      # [PageDown]
 
-if [[ "${terminfo[kcuu1]}" != "" ]]; then
-  bindkey "${terminfo[kcuu1]}" history-substring-search-up      # start typing + [Up-Arrow] - fuzzy find history forward
-fi
+[[ "${terminfo[kcuu1]}" != "" ]] && \
+  bindkey "${terminfo[kcuu1]}" history-substring-search-up      # [Up-Arrow]
 
-if [[ "${terminfo[kcud1]}" != "" ]]; then
-  bindkey "${terminfo[kcud1]}" history-substring-search-down    # start typing + [Down-Arrow] - fuzzy find history backward
-fi
+[[ "${terminfo[kcud1]}" != "" ]] && \
+  bindkey "${terminfo[kcud1]}" history-substring-search-down    # [Down-Arrow]
 
 
 ########################################################################
