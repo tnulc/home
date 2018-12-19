@@ -28,6 +28,9 @@
 [push]
 	default = current
 	recurseSubmodules = on-demand
+[pull]
+	default = current
+	rebase = true
 [status]
 	submodulesummary = true
 	showUntrackedFiles = all
@@ -42,6 +45,7 @@
 [http]
 	sslVerify = true
 [branch]
+	autosetupmerge = always
 	autosetuprebase = always
 [help]
 	autocorrect = 1
@@ -65,8 +69,6 @@
 	templatedir = ~/.git-templates
 [rebase]
 	autoStash = true
-[pull]
-	rebase = true
 [fetch]
 	prune = true
 	pruneTags = true
