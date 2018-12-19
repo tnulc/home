@@ -8,6 +8,8 @@
 	pager = less
 	commitGraph = true
 	editor = vi
+[hub]
+	host = github.com
 [color]
 	ui = auto
 [diff]

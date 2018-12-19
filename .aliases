@@ -6,7 +6,7 @@
 
 if (( $+commands[hub] ))
 then
-  alias git=$(which hub)
+  eval "$(hub alias -s)"
 fi
 
 alias gl='git pull --prune'
