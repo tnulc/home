@@ -1,3 +1,4 @@
-compdef c
+#compdef c
+#autoload
 
 _directories -W $PROJECTS;

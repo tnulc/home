@@ -1,0 +1,9 @@
+#!/bin/sh
+
+home() {
+  if [[ -n "$1" ]] then;
+    git --git-dir="$HOME/.home.git" $@
+  else	
+    git
+  fi
+}

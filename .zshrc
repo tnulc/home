@@ -19,8 +19,10 @@ export SAVEHIST=$HISTSIZE
 # zsh
 ########################################################################
 
-ZSH="$HOME/.local/etc/zsh"
-SHARE="$HOME/.local/share"
+LOCAL="$HOME/.local"
+ETC="$LOCAL/etc"
+SHARE="$LOCAL/share"
+LIB="$LOCAL/lib"
 
 typeset -U cdpath
 
@@ -31,14 +33,15 @@ cdpath=(
 )
 
 typeset -U fpath
+
 fpath=(
-  $ZSH/functions
-  $ZSH/completions
+  $(brew --prefix)/share/zsh-completions
   $(brew --prefix)/share/zsh/site-functions
-  $SHARE/zsh/zsh-completions/src
+  $LIB/zsh/functions
   $fpath
 )
 
+autoload -Uz $LIB/zsh/functions/*(:t)
 autoload -Uz compaudit compinit
 autoload -Uz bashcompinit
 
@@ -52,15 +55,18 @@ for dump in $HOME/.zcompdump(#qN.m1); do
     zcompile "$dump"
   fi
 done
-unsetopt EXTENDEDGLOB
 compinit -C
 
-[[ -s "$ZSH/opts.zsh" ]] && source "$ZSH/opts.zsh"
-[[ -s "$ZSH/completion.zsh" ]] && source "$ZSH/completion.zsh"
-[[ -s "$ZSH/grep.zsh" ]] && source "$ZSH/grep.zsh"
-[[ -s "$ZSH/functions.zsh" ]] && source "$ZSH/functions.zsh"
-[[ -s "$ZSH/bindings.zsh" ]] && source "$ZSH/bindings.zsh"
-[[ -s "$ZSH/prompt.zsh" ]] && source "$ZSH/prompt.zsh"
+typeset -U fns
+
+fns=(
+  $LIB/zsh/functions/^_*
+)
+
+for fn in $fns; do source $fn; done
+unset fns
+
+unsetopt EXTENDEDGLOB
 
 
 ########################################################################
@@ -144,5 +150,12 @@ ZSH_AUTOSUGGEST_USE_ASYNC=1
 # aliases
 [[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
 
+[[ -s "$ETC/zsh/opts.zsh" ]] && source "$ETC/zsh/opts.zsh"
+[[ -s "$ETC/zsh/completion.zsh" ]] && source "$ETC/zsh/completion.zsh"
+[[ -s "$ETC/zsh/grep.zsh" ]] && source "$ETC/zsh/grep.zsh"
+[[ -s "$ETC/zsh/bindings.zsh" ]] && source "$ETC/zsh/bindings.zsh"
+[[ -s "$ETC/zsh/prompt.zsh" ]] && source "$ETC/zsh/prompt.zsh"
+
 # sandbox
 source "$SHARE/sandboxd/sandboxd"
+
