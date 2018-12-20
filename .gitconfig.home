@@ -7,6 +7,7 @@
 [core]
 	excludesfile = ~/.gitignore.home
 	sharedRepository = umask
+	worktree = ~/
 [push]
 	default = current
 	recurseSubmodules = on-demand

@@ -26,13 +26,14 @@ typeset -U cdpath
 
 cdpath=(
   $HOME
-  $HOME/git
+  $PROJECTS
   $cdpath
 )
 
 typeset -U fpath
 fpath=(
   $ZSH/functions
+  $ZSH/completions
   $(brew --prefix)/share/zsh/site-functions
   $SHARE/zsh/zsh-completions/src
   $fpath
