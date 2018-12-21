@@ -76,6 +76,17 @@ unsetopt EXTENDEDGLOB
 
 
 ########################################################################
+# local sources
+########################################################################
+
+[[ -s "$ETC/zsh/opts.zsh" ]] && source "$ETC/zsh/opts.zsh"
+[[ -s "$ETC/zsh/completion.zsh" ]] && source "$ETC/zsh/completion.zsh"
+[[ -s "$ETC/zsh/grep.zsh" ]] && source "$ETC/zsh/grep.zsh"
+[[ -s "$ETC/zsh/bindings.zsh" ]] && source "$ETC/zsh/bindings.zsh"
+[[ -s "$ETC/zsh/prompt.zsh" ]] && source "$ETC/zsh/prompt.zsh"
+
+
+########################################################################
 # colors
 ########################################################################
 
@@ -150,15 +161,8 @@ ZSH_AUTOSUGGEST_USE_ASYNC=1
 
 
 ########################################################################
-# extra sources
+# sandboxd
 ########################################################################
 
-[[ -s "$ETC/zsh/opts.zsh" ]] && source "$ETC/zsh/opts.zsh"
-[[ -s "$ETC/zsh/completion.zsh" ]] && source "$ETC/zsh/completion.zsh"
-[[ -s "$ETC/zsh/grep.zsh" ]] && source "$ETC/zsh/grep.zsh"
-[[ -s "$ETC/zsh/bindings.zsh" ]] && source "$ETC/zsh/bindings.zsh"
-[[ -s "$ETC/zsh/prompt.zsh" ]] && source "$ETC/zsh/prompt.zsh"
-
-# sandbox
-source "$SHARE/sandboxd/sandboxd"
-
+[[ -s "$SHARE/sandboxd/sandboxd" ]] && \
+  source "$SHARE/sandboxd/sandboxd"
