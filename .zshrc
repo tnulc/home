@@ -70,6 +70,7 @@ fns=(
 )
 
 for fn in $fns; do source $fn; done
+
 unset fns
 
 unsetopt EXTENDEDGLOB
