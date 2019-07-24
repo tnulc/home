@@ -43,8 +43,9 @@ function parse_git_untracked() {
 }
 
 function parse_git_rev_list() {
-  local LEFT_AHEAD=$(command git rev-list --count origin/master..@ 2> /dev/null)
-  local RIGHT_AHEAD=$(command git rev-list --count @..origin/master 2> /dev/null)
+  local DEFAULT_BRANCH=$(command git remote show origin | grep "HEAD branch" | cut -d ":" -f 2 | tr -d [:blank:] 2> /dev/null)
+  local LEFT_AHEAD=$(command git rev-list --count origin/$DEFAULT_BRANCH..@ 2> /dev/null)
+  local RIGHT_AHEAD=$(command git rev-list --count @..origin/$DEFAULT_BRANCH 2> /dev/null)
   if [[ $LEFT_AHEAD > 0 || $RIGHT_AHEAD > 0 ]]; then echo "[$(show_number $LEFT_AHEAD 010)…$(show_number $RIGHT_AHEAD 009)]"; fi
 }
 
@@ -100,7 +101,7 @@ function timer_info() {
       TIMER_BG="011"
       TIMER_FG="000"
       TIMER_FX="bold"
-    else 
+    else
       TIMER_BG="000"
       TIMER_FG="255"
       TIMER_FX=""
