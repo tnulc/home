@@ -56,11 +56,6 @@
 	fetch = +refs/pull/*/head:refs/remotes/origin/pull/*
 [receive]
 	fsckObjects = true
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
 [tig]
 	show-changes = true
 	tab-size = 2
