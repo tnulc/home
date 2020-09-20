@@ -54,14 +54,12 @@ function show_number() {
 }
 
 function virtualenv_prompt_info() {
-  if [[ -n $SANDBOX_INIT_PYENV ]]; then
-    local VENV=$(command echo $VIRTUAL_ENV 2> /dev/null)
-    if [[ $VENV ]]; then echo "$FG[011]$(basename $VIRTUAL_ENV)$FX[reset] "; fi
-  fi
+  local VENV=$(command echo $VIRTUAL_ENV 2> /dev/null)
+  if [[ $VENV ]]; then echo "$FG[011]$(basename $VIRTUAL_ENV)$FX[reset] "; fi
 }
 
 function node_prompt_info() {
-  if [[ -n $SANDBOX_INIT_NVM ]] && which node &> /dev/null; then
+  if which node &> /dev/null; then
     echo "$FG[010]${$(node -v)/v}($FG[009]$(npm -v)$FG[010])$FX[reset] "
   fi
 }
