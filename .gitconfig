@@ -1,6 +1,6 @@
 [user]
 	name = Christopher Lunt
-	email = kirisu@users.noreply.github.com
+	email = tnulc@users.noreply.github.com
 [core]
 	preloadindex = true
 	excludesfile = ~/.gitignore.global

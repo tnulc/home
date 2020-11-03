@@ -2,7 +2,7 @@
 # tooling not to see it)
 [user]
 	name = Christopher Lunt
-	email = kirisu@users.noreply.github.com
+	email = tnulc@users.noreply.github.com
 	signingkey = E6C8E3B93C8348A2
 [core]
 	excludesfile = ~/.gitignore.home
