@@ -159,3 +159,7 @@ ZSH_AUTOSUGGEST_USE_ASYNC=1
 
 [[ "${terminfo[kcud1]}" != "" ]] && \
   bindkey "${terminfo[kcud1]}" history-substring-search-down    # [Down-Arrow]
+
+[ -e "$HOME/.zshrc.local" ] && \
+  . "$HOME/.zshrc.local"
+
